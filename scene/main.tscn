@@ -1,0 +1,272 @@
+[gd_scene load_steps=14 format=3 uid="uid://gcx57om1q6u4"]
+
+[ext_resource type="Script" path="res://script/GameManager.cs" id="1_shxy6"]
+[ext_resource type="FontFile" uid="uid://dob48xrwub224" path="res://font/angrybirds.ttf" id="2_6n2t2"]
+[ext_resource type="Texture2D" uid="uid://vthhy05l2lhf" path="res://assets/btnUP.png" id="3_ix0ek"]
+[ext_resource type="Texture2D" uid="uid://bioitxinconnp" path="res://assets/btnDOWN.png" id="4_287a0"]
+[ext_resource type="Texture2D" uid="uid://dhqgo2hfvor8y" path="res://assets/web-light.png" id="5_6u2oe"]
+[ext_resource type="Texture2D" uid="uid://deyn2n1kg3q5u" path="res://assets/github.png" id="6_mxy0b"]
+[ext_resource type="Texture2D" uid="uid://cpvo0g54kitbt" path="res://assets/instagram.png" id="7_d5ohe"]
+[ext_resource type="Texture2D" uid="uid://bevyokul63ke7" path="res://assets/happy.png" id="9_me1id"]
+[ext_resource type="Texture2D" uid="uid://cv3ed73guriwo" path="res://assets/sad.png" id="10_5mvux"]
+[ext_resource type="Texture2D" uid="uid://l8t546rfp3m2" path="res://assets/boss.png" id="11_d6t0g"]
+[ext_resource type="Texture2D" uid="uid://cdur82rgy5gdj" path="res://assets/btnBack.png" id="11_irxpt"]
+[ext_resource type="Texture2D" uid="uid://dyov152serbn2" path="res://assets/btnNext.png" id="12_0b0dn"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_colty"]
+
+[node name="Control" type="Control"]
+texture_filter = 2
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_shxy6")
+
+[node name="myLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.08
+anchor_top = 0.345
+anchor_right = 0.902
+anchor_bottom = 0.458
+offset_top = -1.52588e-05
+offset_right = 0.199982
+offset_bottom = 0.199982
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_6n2t2")
+theme_override_font_sizes/font_size = 50
+text = "RED"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="labelTimer" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 84.0
+offset_top = -245.0
+offset_right = 134.0
+offset_bottom = -225.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_6n2t2")
+theme_override_font_sizes/font_size = 16
+text = "Timer:"
+vertical_alignment = 1
+
+[node name="Timer" type="Label" parent="labelTimer"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.113
+anchor_top = 0.036
+anchor_right = 1.979
+anchor_bottom = 1.0
+offset_left = 41.35
+offset_top = 0.28
+offset_right = -17.95
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_6n2t2")
+theme_override_font_sizes/font_size = 16
+text = "100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="labelScore" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 83.0
+offset_top = -220.0
+offset_right = 136.0
+offset_bottom = -200.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_6n2t2")
+theme_override_font_sizes/font_size = 16
+text = "Score:"
+vertical_alignment = 1
+
+[node name="Score" type="Label" parent="labelScore"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 26.5
+offset_top = -10.0
+offset_right = 87.5
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_6n2t2")
+theme_override_font_sizes/font_size = 16
+text = "1000"
+vertical_alignment = 1
+
+[node name="pathLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 16.0
+offset_right = 383.0
+offset_bottom = 42.0
+theme_override_font_sizes/font_size = 14
+text = "Path:"
+vertical_alignment = 1
+
+[node name="infoDeveloper" type="Label" parent="."]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 567.0
+offset_right = 386.0
+offset_bottom = 591.0
+theme_override_fonts/font = ExtResource("2_6n2t2")
+theme_override_font_sizes/font_size = 18
+text = "Made with o by Between Byte Software - 2024"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="labelWhatColor" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.25
+anchor_right = 0.985
+anchor_bottom = 0.363
+offset_left = 10.0
+offset_right = -9.00003
+offset_bottom = 0.199997
+theme_override_fonts/font = ExtResource("2_6n2t2")
+theme_override_font_sizes/font_size = 50
+text = "What's the color?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="labelOne" type="Label" parent="."]
+z_index = 1
+layout_mode = 0
+offset_left = 708.0
+offset_top = 1473.0
+offset_right = 1101.0
+offset_bottom = 1542.0
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxTexture_colty")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="btnOne" type="TouchScreenButton" parent="."]
+position = Vector2(10, 277)
+scale = Vector2(0.8, 1)
+texture_normal = ExtResource("4_287a0")
+texture_pressed = ExtResource("3_ix0ek")
+
+[node name="btnTwo" type="TouchScreenButton" parent="."]
+position = Vector2(208, 277)
+scale = Vector2(0.8, 1)
+texture_normal = ExtResource("4_287a0")
+texture_pressed = ExtResource("3_ix0ek")
+
+[node name="btnThree" type="TouchScreenButton" parent="."]
+position = Vector2(10, 342)
+scale = Vector2(0.8, 1)
+texture_normal = ExtResource("4_287a0")
+texture_pressed = ExtResource("3_ix0ek")
+
+[node name="btnFour" type="TouchScreenButton" parent="."]
+position = Vector2(208, 342)
+scale = Vector2(0.8, 1)
+texture_normal = ExtResource("4_287a0")
+texture_pressed = ExtResource("3_ix0ek")
+
+[node name="btnFive" type="TouchScreenButton" parent="."]
+position = Vector2(10, 407)
+scale = Vector2(0.8, 1)
+texture_normal = ExtResource("4_287a0")
+texture_pressed = ExtResource("3_ix0ek")
+
+[node name="btnSix" type="TouchScreenButton" parent="."]
+position = Vector2(208, 407)
+scale = Vector2(0.8, 1)
+texture_normal = ExtResource("4_287a0")
+texture_pressed = ExtResource("3_ix0ek")
+
+[node name="labelFollow" type="Label" parent="."]
+layout_mode = 0
+offset_left = 155.0
+offset_top = 467.0
+offset_right = 238.0
+offset_bottom = 492.0
+theme_override_fonts/font = ExtResource("2_6n2t2")
+theme_override_font_sizes/font_size = 20
+text = "Follow US"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="btnWeb" type="TouchScreenButton" parent="."]
+texture_filter = 2
+position = Vector2(119, 498)
+scale = Vector2(0.292453, 0.235849)
+texture_normal = ExtResource("5_6u2oe")
+
+[node name="btnInstagram" type="TouchScreenButton" parent="."]
+texture_filter = 2
+position = Vector2(182, 499)
+scale = Vector2(0.187, 0.187)
+texture_normal = ExtResource("7_d5ohe")
+
+[node name="btnGitHub" type="TouchScreenButton" parent="."]
+texture_filter = 2
+position = Vector2(249, 499)
+scale = Vector2(0.19, 0.19)
+texture_normal = ExtResource("6_mxy0b")
+
+[node name="faceHappy" type="Sprite2D" parent="."]
+texture_filter = 2
+position = Vector2(189, 91)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("9_me1id")
+
+[node name="faceSad" type="Sprite2D" parent="."]
+texture_filter = 2
+position = Vector2(189, 91)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("10_5mvux")
+
+[node name="faceBoss" type="Sprite2D" parent="."]
+texture_filter = 2
+position = Vector2(189, 91)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("11_d6t0g")
+
+[node name="myTimer" type="Timer" parent="."]
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(35, 545)
+scale = Vector2(0.345361, 0.370968)
+texture = ExtResource("11_irxpt")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(366, 542)
+scale = Vector2(0.345, 0.371)
+texture = ExtResource("12_0b0dn")
+
+[connection signal="pressed" from="btnOne" to="." method="CheckColor"]
+[connection signal="pressed" from="btnTwo" to="." method="CheckColor"]
+[connection signal="pressed" from="btnThree" to="." method="CheckColor"]
+[connection signal="pressed" from="btnFour" to="." method="CheckColor"]
+[connection signal="pressed" from="btnFive" to="." method="CheckColor"]
+[connection signal="pressed" from="btnSix" to="." method="CheckColor"]
+[connection signal="pressed" from="btnWeb" to="." method="OpenBrowser" binds= ["https://byerudito.web.app/"]]
+[connection signal="pressed" from="btnInstagram" to="." method="OpenBrowser" binds= ["https://www.instagram.com/theerudito/"]]
+[connection signal="pressed" from="btnGitHub" to="." method="OpenBrowser" binds= ["https://github.com/theerudito"]]
