@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://1toubgcowebh"
-path="res://.godot/imported/github.png-2380bbe348a8d7734dc68efed7ee1536.ctex"
+uid="uid://cqce4rbf8jv5h"
+path="res://.godot/imported/buttonsGameDOWN.png-802f4b888859085d6a51f4aa8a4da77b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/github.png"
-dest_files=["res://.godot/imported/github.png-2380bbe348a8d7734dc68efed7ee1536.ctex"]
+source_file="res://assets/buttonsGameDOWN.png"
+dest_files=["res://.godot/imported/buttonsGameDOWN.png-802f4b888859085d6a51f4aa8a4da77b.ctex"]
 
 [params]
 

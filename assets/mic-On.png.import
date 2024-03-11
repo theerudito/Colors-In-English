@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://1toubgcowebh"
-path="res://.godot/imported/github.png-2380bbe348a8d7734dc68efed7ee1536.ctex"
+uid="uid://dlpi3pcnuffvo"
+path="res://.godot/imported/mic-On.png-b27799f03274691bb050279ebb140c2d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/github.png"
-dest_files=["res://.godot/imported/github.png-2380bbe348a8d7734dc68efed7ee1536.ctex"]
+source_file="res://assets/mic-On.png"
+dest_files=["res://.godot/imported/mic-On.png-b27799f03274691bb050279ebb140c2d.ctex"]
 
 [params]
 

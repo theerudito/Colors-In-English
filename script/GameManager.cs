@@ -1,145 +1,240 @@
 using System;
-using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
-using ColorsInEnglish.script;
+using System.Threading.Tasks;
 using Godot;
 
 
 public partial class GameManager : Node
 {
 	[Export]
-	private Label myLabel;
+	private Label[] myLabel;
+
 	[Export]
-	private Label pathLabel;
+	private Texture2D[] spriteFaces;
+
 	[Export]
-	private Label _labelOne;
+	private Texture2D[] spriteConfing;
+
 	[Export]
-	private Label _labelTimer;
+	private TouchScreenButton[] _btnConfig;
+
 	[Export]
-	private Label _labelScore;
+	private TouchScreenButton[] _btnGame;
 
-	private TouchScreenButton _btnOne;
-	private TouchScreenButton _btnTwo;
-	private TouchScreenButton _btnThree;
-	private TouchScreenButton _btnFour;
-	private TouchScreenButton _btnFive;
-	private TouchScreenButton _btnSix;
+	[Export]
+	private AudioStream[] _audioPlayer;
 
-	private Sprite2D _faceHappy;
-	private Sprite2D _faceSad;
-	private Sprite2D _faceBoss;
+	private TextureRect _panelConfig;
+	private AudioStreamPlayer2D _soundGame;
 
-	private Timer _timer;
+	private string infoEN = "MADE WITH ❤ BY BETWEEN BYTE SOFTWARE " + "- " + DateTime.Now.Year.ToString();
 
-	private string info = "Made with ❤ by Between Byte Software® " + "- " + DateTime.Now.Year.ToString();
-	private string _correctColor = "GreenYellow";
-	private string _inCorrectColor = "Red";
+	private string infoES = "HECHO CON ❤ POR BETWEEN BYTE SOFTWARE " + "- " + DateTime.Now.Year.ToString();
+	private bool _isPlaying = true;
+	private bool _flagEN = true;
+	private bool _isOpen = false;
+	private string _language;
+	private int _score = 0;
+	private int _time = 10;
 
-	private string[] myColors = new string[6];
-
-	private int _idColor = 0;
 
 	Random random = new Random();
 
 	public override void _Ready()
 	{
-		_labelOne = GetNode<Label>("labelOne");
-		myLabel = GetNode<Label>("myLabel");
-		pathLabel = GetNode<Label>("pathLabel");
-		_labelTimer = GetNode<Label>("labelTimer").GetChild<Label>(0);
-		_labelScore = GetNode<Label>("labelScore").GetChild<Label>(0);
 
-		_btnOne = GetNode<TouchScreenButton>("btnOne");
-		_btnTwo = GetNode<TouchScreenButton>("btnTwo");
-		_btnThree = GetNode<TouchScreenButton>("btnThree");
-		_btnFour = GetNode<TouchScreenButton>("btnFour");
-		_btnFive = GetNode<TouchScreenButton>("btnFive");
-		_btnSix = GetNode<TouchScreenButton>("btnSix");
+		#region SOUND
+		if (LocalStorage.LoadData("sound") == null)
+		{
 
-		_faceHappy = GetNode<Sprite2D>("faceHappy");
-		_faceSad = GetNode<Sprite2D>("faceSad");
-		_faceBoss = GetNode<Sprite2D>("faceBoss");
+			LocalStorage.SaveData("sound", "ON");
+			_isPlaying = true;
+			_btnConfig[0].TextureNormal = spriteConfing[0];
+		}
+		else
+		{
+			if (LocalStorage.LoadData("sound") == "OFF")
+			{
+				_isPlaying = false;
+				_btnConfig[0].TextureNormal = spriteConfing[1];
+			}
+			else
+			{
+				_isPlaying = true;
+				_btnConfig[0].TextureNormal = spriteConfing[0];
+			}
+		}
+		#endregion SOUND
 
-		_timer = GetNode<Timer>("myTimer");
+		#region LANGUAGE
+		if (LocalStorage.LoadData("language") == null)
+		{
+			_flagEN = true;
+			ChangeLabels("EN");
+		}
+		else
+		{
+			if (LocalStorage.LoadData("language") == "ES")
+			{
+				_flagEN = false;
+				ChangeLabels("ES");
+			}
+			else
+			{
+				_flagEN = true;
+				ChangeLabels("EN");
+			}
+		}
+		#endregion LANGUAGE
 
-		_labelOne.AddThemeColorOverride("font_color", new Color("Black"));
+		#region SCORE
+		if (LocalStorage.LoadData("score") == null)
+		{
+			_score = 0;
+			LocalStorage.SaveData("score", _score.ToString());
+		}
+		else
+		{
+			_score = LocalStorage.LoadDataInt("score");
+			myLabel[3].Text = _score.ToString();
+		}
+		#endregion SCORE
 
-		GetNode<Label>("infoDeveloper").Text = info;
+		_panelConfig = GetNode<TextureRect>("panelConfig");
+		_panelConfig.Visible = false;
+		_soundGame = GetNode<AudioStreamPlayer2D>("soundGame");
 
-		_faceHappy.Visible = false;
-		_faceSad.Visible = false;
+		var db = Colors.newColorEN.ToList();
 
-		GenerateColor();
+		var colorRamdom = random.Next(0, db.Count);
+
+		_btnGame[0].Modulate = new Color(db[5].Hex);
+		_btnGame[1].Modulate = new Color(db[30].Hex);
+		_btnGame[2].Modulate = new Color(db[3].Hex);
+		_btnGame[3].Modulate = new Color(db[8].Hex);
+		_btnGame[4].Modulate = new Color(db[20].Hex);
+		_btnGame[5].Modulate = new Color(db[colorRamdom].Hex);
 
 	}
-
 
 	private void CheckColor()
 	{
 
-		var color = myLabel.Text;
-		var labelColor = new Color(color);
-		GD.Print("Color: " + color);
-
-		TouchScreenButton[] buttons = new TouchScreenButton[] { _btnOne, _btnTwo, _btnThree, _btnFour, _btnFive, _btnSix };
-
-		GD.Print(buttons);
-
-		bool colorMatch = false;
-
-		foreach (var button in buttons)
-		{
-			if (button.Modulate == labelColor)
-			{
-				colorMatch = true;
-				break;
-			}
-		}
-
-		if (colorMatch)
-		{
-			_faceHappy.Visible = true;
-			_faceSad.Visible = false;
-			_faceBoss.Visible = false;
-			GenerateColor();
-		}
-		else
-		{
-			_faceHappy.Visible = false;
-			_faceSad.Visible = true;
-			_faceBoss.Visible = false;
-		}
-
 
 	}
-
 
 	private void GenerateColor()
 	{
-		var colorRamdom = random.Next(0, Word.GetData().Count);
 
-		var selectColor = Word.GetData().Where(x => x.IdWord == colorRamdom).FirstOrDefault();
-
-		if (selectColor == null) return;
-
-		_idColor = selectColor.IdWord;
-		myLabel.Text = selectColor.Color;
-
-		List<int> MyIndex = new List<int> { 1, 2, 3, 4, 5, _idColor };
-
-		MyIndex = MyIndex.OrderBy(x => random.Next()).ToList();
-
-		TouchScreenButton[] buttons = new TouchScreenButton[] { _btnOne, _btnTwo, _btnThree, _btnFour, _btnFive, _btnSix };
-
-		for (int i = 0; i < MyIndex.Count; i++)
-		{
-			int index = MyIndex[i] - 1;
-			buttons[i].Modulate = new Color(Word.GetData()[index].Color);
-		}
-		_faceHappy.Visible = false;
-		_faceSad.Visible = false;
-		_faceBoss.Visible = true;
 	}
 
-	private void OpenBrowser(string url) => OS.ShellOpen(url);
+	private void ResetGame()
+	{
+
+	}
+
+	private void ChangeLanguage()
+	{
+		if (_flagEN == true)
+		{
+			_flagEN = false;
+			LocalStorage.SaveData("language", "ES");
+			ClosePanel();
+			SoundClick();
+			ChangeLabels("ES");
+			Debug.WriteLine("SPANISH");
+		}
+		else
+		{
+			_flagEN = true;
+			LocalStorage.SaveData("language", "EN");
+			ClosePanel();
+			SoundClick();
+			ChangeLabels("EN");
+			Debug.WriteLine("ENGLISH");
+		}
+	}
+
+	private void ChangeSound()
+	{
+		if (_isPlaying == true)
+		{
+			_isPlaying = false;
+			_btnConfig[0].TextureNormal = spriteConfing[1];
+			LocalStorage.SaveData("sound", "OFF");
+			ClosePanel();
+			SoundClick();
+		}
+		else
+		{
+			_isPlaying = true;
+			_btnConfig[0].TextureNormal = spriteConfing[0];
+			LocalStorage.SaveData("sound", "ON");
+			ClosePanel();
+			SoundClick();
+		}
+	}
+
+	private void OpenPanel()
+	{
+		SoundClick();
+		if (_isOpen == false)
+		{
+			_panelConfig.Visible = true;
+			_btnConfig[2].TextureNormal = spriteConfing[4];
+			_isOpen = true;
+		}
+		else
+		{
+			ClosePanel();
+			_btnConfig[2].TextureNormal = spriteConfing[5];
+		}
+	}
+
+	private void ClosePanel()
+	{
+		_panelConfig.Visible = false;
+		_isOpen = false;
+		_btnConfig[2].TextureNormal = spriteConfing[5];
+	}
+
+	private void OpenBrowser(string url)
+	{
+		SoundClick();
+		OS.ShellOpen(url);
+	}
+
+	private void SoundClick()
+	{
+		_soundGame.Stream = _audioPlayer[3];
+		_soundGame.Play();
+	}
+
+	private void ChangeLabels(string language)
+	{
+		if (_flagEN == true)
+		{
+			_language = language;
+			myLabel[0].Text = "TIME:";
+			myLabel[2].Text = "SCORE:";
+			myLabel[4].Text = "DATABASE: OK";
+			myLabel[5].Text = "WHATS COLOR IS";
+			myLabel[13].Text = "FOLLOW US";
+			myLabel[14].Text = infoEN;
+			_btnConfig[1].TextureNormal = spriteConfing[3];
+
+		}
+		else
+		{
+			_language = language;
+			myLabel[0].Text = "TIEMPO:";
+			myLabel[2].Text = "PUNTOS:";
+			myLabel[4].Text = "BASE DE DATOS: OK";
+			myLabel[5].Text = "QUE COLOR ES";
+			myLabel[13].Text = "SIGUENOS";
+			myLabel[14].Text = infoES;
+			_btnConfig[1].TextureNormal = spriteConfing[2];
+		}
+	}
 }
