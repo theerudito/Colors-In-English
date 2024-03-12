@@ -36,7 +36,7 @@ bg_color = Color(0.6, 0.6, 0.6, 0)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lfsbx"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
-[node name="Control" type="Control" node_paths=PackedStringArray("myLabel", "_btnConfig", "_btnGame")]
+[node name="Control" type="Control" node_paths=PackedStringArray("myLabel", "_btnConfig", "_btnGame", "_labelButtons")]
 texture_filter = 2
 layout_mode = 3
 anchors_preset = 15
@@ -47,11 +47,12 @@ offset_right = -1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_shxy6")
-myLabel = [NodePath("PanelGame/txtTime"), NodePath("PanelGame/txtTime/labelTime"), NodePath("PanelGame/txtScore"), NodePath("PanelGame/txtScore/labelScore"), NodePath("txtInfo"), NodePath("txtAnswer"), NodePath("txtAnswer/textColor"), NodePath("Panel Buttons/btnOne/Label"), NodePath("Panel Buttons/btnTwo/Label"), NodePath("Panel Buttons/btnThree/Label"), NodePath("Panel Buttons/btnFour/Label"), NodePath("Panel Buttons/btnFive/Label"), NodePath("Panel Buttons/btnSix/Label"), NodePath("Panel Social Media/labelFollow"), NodePath("txtDeveloper")]
+myLabel = [NodePath("PanelGame/txtTime"), NodePath("PanelGame/txtTime/labelTime"), NodePath("PanelGame/txtScore"), NodePath("PanelGame/txtScore/labelScore"), NodePath("txtInfo"), NodePath("txtAnswer"), NodePath("txtAnswer/textColor"), NodePath("Panel Social Media/labelFollow"), NodePath("txtDeveloper")]
 spriteFaces = Array[Texture2D]([ExtResource("9_t356v"), ExtResource("7_42mdv"), ExtResource("8_ywte4")])
 spriteConfing = Array[Texture2D]([ExtResource("7_3ryko"), ExtResource("6_3nju5"), ExtResource("6_5uml3"), ExtResource("8_ysqbq"), ExtResource("4_tqy08"), ExtResource("10_j2lok")])
 _btnConfig = [NodePath("panelConfig/btnSound"), NodePath("panelConfig/btnLanguage"), NodePath("btnConfig")]
 _btnGame = [NodePath("Panel Buttons/btnOne"), NodePath("Panel Buttons/btnTwo"), NodePath("Panel Buttons/btnThree"), NodePath("Panel Buttons/btnFour"), NodePath("Panel Buttons/btnFive"), NodePath("Panel Buttons/btnSix")]
+_labelButtons = [NodePath("Panel Buttons/btnOne/color1"), NodePath("Panel Buttons/btnTwo/color2"), NodePath("Panel Buttons/btnThree/color3"), NodePath("Panel Buttons/btnFour/color4"), NodePath("Panel Buttons/btnFive/color5"), NodePath("Panel Buttons/btnSix/color6")]
 _audioPlayer = Array[AudioStream]([ExtResource("9_ywqfl"), ExtResource("17_5evxo"), ExtResource("11_hlcnl"), ExtResource("12_77m1t")])
 
 [node name="PanelGame" type="Panel" parent="."]
@@ -63,6 +64,7 @@ offset_bottom = 39.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_d2uxo")
 
 [node name="txtTime" type="Label" parent="PanelGame"]
+texture_filter = 1
 layout_mode = 0
 offset_left = 1.0
 offset_top = 5.0
@@ -84,6 +86,7 @@ text = "10"
 horizontal_alignment = 2
 
 [node name="txtScore" type="Label" parent="PanelGame"]
+texture_filter = 1
 layout_mode = 0
 offset_left = 1.0
 offset_top = 19.0
@@ -94,43 +97,44 @@ theme_override_font_sizes/font_size = 6
 text = "SCORE:"
 
 [node name="labelScore" type="Label" parent="PanelGame/txtScore"]
+texture_filter = 1
 layout_mode = 0
 offset_left = 38.0
 offset_right = 82.0
 offset_bottom = 7.0
 theme_override_fonts/font = ExtResource("2_7gpmf")
 theme_override_font_sizes/font_size = 6
-text = "1000"
+text = "100000000"
 horizontal_alignment = 2
+text_overrun_behavior = 3
 
 [node name="imgPremium" type="Sprite2D" parent="."]
 position = Vector2(39, 16)
-scale = Vector2(0.3, 0.3)
+scale = Vector2(0.35, 0.3)
 texture = ExtResource("3_pk3as")
 
 [node name="btnConfig" type="TouchScreenButton" parent="."]
-position = Vector2(30, 28)
-scale = Vector2(0.3, 0.3)
+position = Vector2(27, 30)
+scale = Vector2(0.4, 0.4)
 texture_normal = ExtResource("10_j2lok")
 
 [node name="panelConfig" type="TextureRect" parent="."]
-visible = false
 layout_mode = 0
-offset_left = 16.0
-offset_top = 54.0
-offset_right = 61.0
-offset_bottom = 74.0
+offset_left = 13.0
+offset_top = 58.0
+offset_right = 66.0
+offset_bottom = 84.0
 texture = ExtResource("5_6dydi")
 expand_mode = 1
 
 [node name="btnLanguage" type="TouchScreenButton" parent="panelConfig"]
-position = Vector2(2, 3)
-scale = Vector2(0.04, 0.04)
+position = Vector2(3, 4)
+scale = Vector2(0.05, 0.05)
 texture_normal = ExtResource("6_5uml3")
 
 [node name="btnSound" type="TouchScreenButton" parent="panelConfig"]
-position = Vector2(30, 4)
-scale = Vector2(0.12766, 0.171429)
+position = Vector2(31, 4)
+scale = Vector2(0.2, 0.257143)
 texture_normal = ExtResource("7_3ryko")
 
 [node name="Panel Faces" type="Panel" parent="."]
@@ -188,7 +192,7 @@ offset_bottom = 0.0119934
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("2_7gpmf")
-theme_override_font_sizes/font_size = 40
+theme_override_font_sizes/font_size = 30
 text = "RED"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -207,7 +211,7 @@ scale = Vector2(0.55, 0.35)
 texture_normal = ExtResource("3_owfo4")
 texture_pressed = ExtResource("19_f48oa")
 
-[node name="Label" type="Label" parent="Panel Buttons/btnOne"]
+[node name="color1" type="Label" parent="Panel Buttons/btnOne"]
 offset_right = 293.0
 offset_bottom = 97.0
 
@@ -217,7 +221,7 @@ scale = Vector2(0.55, 0.35)
 texture_normal = ExtResource("3_owfo4")
 texture_pressed = ExtResource("19_f48oa")
 
-[node name="Label" type="Label" parent="Panel Buttons/btnTwo"]
+[node name="color2" type="Label" parent="Panel Buttons/btnTwo"]
 offset_right = 40.0
 offset_bottom = 23.0
 
@@ -227,7 +231,7 @@ scale = Vector2(0.55, 0.35)
 texture_normal = ExtResource("3_owfo4")
 texture_pressed = ExtResource("19_f48oa")
 
-[node name="Label" type="Label" parent="Panel Buttons/btnThree"]
+[node name="color3" type="Label" parent="Panel Buttons/btnThree"]
 offset_right = 40.0
 offset_bottom = 23.0
 
@@ -237,7 +241,7 @@ scale = Vector2(0.55, 0.35)
 texture_normal = ExtResource("3_owfo4")
 texture_pressed = ExtResource("19_f48oa")
 
-[node name="Label" type="Label" parent="Panel Buttons/btnFour"]
+[node name="color4" type="Label" parent="Panel Buttons/btnFour"]
 offset_right = 40.0
 offset_bottom = 23.0
 
@@ -247,7 +251,7 @@ scale = Vector2(0.55, 0.35)
 texture_normal = ExtResource("3_owfo4")
 texture_pressed = ExtResource("19_f48oa")
 
-[node name="Label" type="Label" parent="Panel Buttons/btnFive"]
+[node name="color5" type="Label" parent="Panel Buttons/btnFive"]
 offset_right = 40.0
 offset_bottom = 23.0
 
@@ -257,7 +261,7 @@ scale = Vector2(0.55, 0.35)
 texture_normal = ExtResource("3_owfo4")
 texture_pressed = ExtResource("19_f48oa")
 
-[node name="Label" type="Label" parent="Panel Buttons/btnSix"]
+[node name="color6" type="Label" parent="Panel Buttons/btnSix"]
 offset_right = 40.0
 offset_bottom = 23.0
 
@@ -308,6 +312,8 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="soundGame" type="AudioStreamPlayer2D" parent="."]
+
+[node name="myTimer" type="Timer" parent="."]
 
 [connection signal="pressed" from="btnConfig" to="." method="OpenPanel"]
 [connection signal="pressed" from="panelConfig/btnLanguage" to="." method="ChangeLanguage"]
