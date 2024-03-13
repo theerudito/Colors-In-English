@@ -4,7 +4,7 @@ namespace ColorsInEnglish.script
 {
     public partial class GameContext : DbContext
     {
-        public DbSet<Word> Words { get; set; }
+        public DbSet<Colors> Colors { get; set; }
         public GameContext()
         {
             Database.EnsureCreated();
@@ -17,25 +17,14 @@ namespace ColorsInEnglish.script
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Word>().ToTable("Words");
-            modelBuilder.Entity<Word>().HasKey(w => w.IdWord);
-            modelBuilder.Entity<Word>().Property(w => w.Color).IsRequired();
-            modelBuilder.Entity<Word>().HasData(
-                new Word { IdWord = 1, Color = "Red" },
-                new Word { IdWord = 2, Color = "Blue" },
-                new Word { IdWord = 3, Color = "Green" },
-                new Word { IdWord = 4, Color = "Yellow" },
-                new Word { IdWord = 5, Color = "Black" },
-                new Word { IdWord = 6, Color = "White" },
-                new Word { IdWord = 7, Color = "Purple" },
-                new Word { IdWord = 8, Color = "Orange" },
-                new Word { IdWord = 9, Color = "Brown" },
-                new Word { IdWord = 10, Color = "Pink" },
-                new Word { IdWord = 11, Color = "Gray" },
-                new Word { IdWord = 12, Color = "Silver" }
-            );
-
+            modelBuilder.Entity<Colors>().ToTable("Colors");
+            modelBuilder.Entity<Colors>().HasKey(c => c.IdColor);
+            modelBuilder.Entity<Colors>().Property(c => c.Name).IsRequired();
+            modelBuilder.Entity<Colors>().Property(c => c.Hex).IsRequired();
+            modelBuilder.Entity<Colors>().HasData(
+                new Colors { IdColor = 1, Name = "YELLOW", Hex = "#FFFF00" },
+                new Colors { IdColor = 2, Name = "BLUE", Hex = "#0000FF" },
+                new Colors { IdColor = 3, Name = "RED", Hex = "#FF0000" });
         }
-
     }
 }

@@ -1,10 +1,9 @@
 using Godot;
+using System.Diagnostics;
 using System.IO;
-using System.Xml.Serialization;
-
 public partial class ConnectionDB : Node
 {
-	private static string nameDatabase = "Game.db";
+	private static string nameDatabase = "Colors.db";
 	public static string GetConnection()
 	{
 		var pathDatabase = "";
@@ -19,10 +18,10 @@ public partial class ConnectionDB : Node
 			}
 			else
 			{
-				GD.Print("File exists");
+				Debug.Print("File exists");
 			}
 			pathDatabase = Path.Combine(path, nameDatabase);
-			GD.Print("Path: ", pathDatabase + " Android");
+			Debug.Print("Path: ", pathDatabase + " Android");
 		}
 		else
 		{
@@ -34,30 +33,12 @@ public partial class ConnectionDB : Node
 			}
 			else
 			{
-				GD.Print("File exists");
+				Debug.Print("File exists");
 			}
 
 			pathDatabase = Path.Combine(path, nameDatabase);
-			GD.Print("Path: ", pathDatabase + " Windows");
+			Debug.Print("Path: ", pathDatabase + " Windows");
 		}
 		return pathDatabase;
 	}
-
-
-	// public static string GetConnection()
-	// {
-	// 	var pathDatabase = "";
-
-	// 	if (OS.GetName() == "Android")
-	// 	{
-	// 		pathDatabase = Path.Combine(OS.GetUserDataDir(), nameDatabase);
-	// 		GD.Print("Path: ", pathDatabase + " Android");
-	// 	}
-	// 	else
-	// 	{
-	// 		pathDatabase = Path.Combine(OS.GetUserDataDir(), nameDatabase);
-	// 		GD.Print("Path: ", pathDatabase + " Windows");
-	// 	}
-	// 	return ProjectSettings.LocalizePath(pathDatabase);
-	// }
 }

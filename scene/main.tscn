@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://gcx57om1q6u4"]
+[gd_scene load_steps=29 format=3 uid="uid://gcx57om1q6u4"]
 
 [ext_resource type="Script" path="res://script/GameManager.cs" id="1_shxy6"]
 [ext_resource type="FontFile" uid="uid://chuqmu2y3p1x8" path="res://font/pixel.ttf" id="2_7gpmf"]
@@ -18,14 +18,25 @@
 [ext_resource type="Texture2D" uid="uid://dgoaekxum845k" path="res://assets/faceDefault.png" id="9_t356v"]
 [ext_resource type="AudioStream" uid="uid://deapv2xsxfhnr" path="res://sound/ok.ogg" id="9_ywqfl"]
 [ext_resource type="Texture2D" uid="uid://31t2j87c1208" path="res://assets/config1.png" id="10_j2lok"]
-[ext_resource type="AudioStream" uid="uid://v53pa762a58g" path="res://sound/clock.mp3" id="11_hlcnl"]
 [ext_resource type="AudioStream" uid="uid://ct8rjhrexauvh" path="res://sound/mouse.ogg" id="12_77m1t"]
+[ext_resource type="AudioStream" uid="uid://7ra28u1dogk5" path="res://sound/clock.ogg" id="13_pjxoh"]
 [ext_resource type="AudioStream" uid="uid://wk7wm7ktdebv" path="res://sound/cancel.ogg" id="17_5evxo"]
+[ext_resource type="Script" path="res://script/imgPremium.cs" id="17_veooq"]
 [ext_resource type="Texture2D" uid="uid://cqce4rbf8jv5h" path="res://assets/buttonsGameDOWN.png" id="19_f48oa"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d2uxo"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 corner_detail = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g0uc3"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.121569, 0.0392157, 0.647059, 1)
+corner_radius_top_left = 10
+corner_radius_bottom_right = 10
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m28t0"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -47,13 +58,13 @@ offset_right = -1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_shxy6")
-myLabel = [NodePath("PanelGame/txtTime"), NodePath("PanelGame/txtTime/labelTime"), NodePath("PanelGame/txtScore"), NodePath("PanelGame/txtScore/labelScore"), NodePath("txtInfo"), NodePath("txtAnswer"), NodePath("txtAnswer/textColor"), NodePath("Panel Social Media/labelFollow"), NodePath("txtDeveloper")]
+myLabel = [NodePath("PanelGame/txtTime"), NodePath("PanelGame/txtTime/labelTime"), NodePath("PanelGame/txtScore"), NodePath("PanelGame/txtScore/labelScore"), NodePath("txtInfo"), NodePath("txtAnswer"), NodePath("txtAnswer/textColor"), NodePath("Panel Social Media/labelFollow"), NodePath("txtDeveloper"), NodePath("imgPremium/txtPremium")]
 spriteFaces = Array[Texture2D]([ExtResource("9_t356v"), ExtResource("7_42mdv"), ExtResource("8_ywte4")])
 spriteConfing = Array[Texture2D]([ExtResource("7_3ryko"), ExtResource("6_3nju5"), ExtResource("6_5uml3"), ExtResource("8_ysqbq"), ExtResource("4_tqy08"), ExtResource("10_j2lok")])
 _btnConfig = [NodePath("panelConfig/btnSound"), NodePath("panelConfig/btnLanguage"), NodePath("btnConfig")]
 _btnGame = [NodePath("Panel Buttons/btnOne"), NodePath("Panel Buttons/btnTwo"), NodePath("Panel Buttons/btnThree"), NodePath("Panel Buttons/btnFour"), NodePath("Panel Buttons/btnFive"), NodePath("Panel Buttons/btnSix")]
 _labelButtons = [NodePath("Panel Buttons/btnOne/color1"), NodePath("Panel Buttons/btnTwo/color2"), NodePath("Panel Buttons/btnThree/color3"), NodePath("Panel Buttons/btnFour/color4"), NodePath("Panel Buttons/btnFive/color5"), NodePath("Panel Buttons/btnSix/color6")]
-_audioPlayer = Array[AudioStream]([ExtResource("9_ywqfl"), ExtResource("17_5evxo"), ExtResource("11_hlcnl"), ExtResource("12_77m1t")])
+_audioPlayer = Array[AudioStream]([ExtResource("9_ywqfl"), ExtResource("17_5evxo"), ExtResource("12_77m1t"), ExtResource("13_pjxoh")])
 
 [node name="PanelGame" type="Panel" parent="."]
 layout_mode = 0
@@ -104,36 +115,51 @@ offset_right = 82.0
 offset_bottom = 7.0
 theme_override_fonts/font = ExtResource("2_7gpmf")
 theme_override_font_sizes/font_size = 6
-text = "100000000"
+text = "10"
 horizontal_alignment = 2
 text_overrun_behavior = 3
 
-[node name="imgPremium" type="Sprite2D" parent="."]
-position = Vector2(39, 16)
-scale = Vector2(0.35, 0.3)
-texture = ExtResource("3_pk3as")
+[node name="imgPremium" type="TouchScreenButton" parent="."]
+position = Vector2(35, 7)
+scale = Vector2(0.4, 0.35)
+texture_normal = ExtResource("3_pk3as")
+script = ExtResource("17_veooq")
+
+[node name="txtPremium" type="Label" parent="imgPremium"]
+offset_left = 58.0
+offset_top = 10.0
+offset_right = 298.0
+offset_bottom = 40.0
+theme_override_fonts/font = ExtResource("2_7gpmf")
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxFlat_g0uc3")
+text = " ARE YOU PREMIUM "
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="btnConfig" type="TouchScreenButton" parent="."]
-position = Vector2(27, 30)
+position = Vector2(32, 30)
 scale = Vector2(0.4, 0.4)
 texture_normal = ExtResource("10_j2lok")
+shape_visible = false
+passby_press = true
 
 [node name="panelConfig" type="TextureRect" parent="."]
 layout_mode = 0
-offset_left = 13.0
+offset_left = 9.0
 offset_top = 58.0
-offset_right = 66.0
-offset_bottom = 84.0
+offset_right = 80.0
+offset_bottom = 85.0
 texture = ExtResource("5_6dydi")
 expand_mode = 1
 
 [node name="btnLanguage" type="TouchScreenButton" parent="panelConfig"]
-position = Vector2(3, 4)
+position = Vector2(6, 5)
 scale = Vector2(0.05, 0.05)
 texture_normal = ExtResource("6_5uml3")
 
 [node name="btnSound" type="TouchScreenButton" parent="panelConfig"]
-position = Vector2(31, 4)
+position = Vector2(46, 4)
 scale = Vector2(0.2, 0.257143)
 texture_normal = ExtResource("7_3ryko")
 
@@ -313,17 +339,22 @@ vertical_alignment = 1
 
 [node name="soundGame" type="AudioStreamPlayer2D" parent="."]
 
-[node name="myTimer" type="Timer" parent="."]
+[node name="timeGame" type="Timer" parent="."]
 
+[node name="timeButtons" type="Timer" parent="."]
+
+[connection signal="pressed" from="imgPremium" to="." method="CheckPremium"]
 [connection signal="pressed" from="btnConfig" to="." method="OpenPanel"]
 [connection signal="pressed" from="panelConfig/btnLanguage" to="." method="ChangeLanguage"]
 [connection signal="pressed" from="panelConfig/btnSound" to="." method="ChangeSound"]
-[connection signal="pressed" from="Panel Buttons/btnOne" to="." method="CheckColor"]
-[connection signal="pressed" from="Panel Buttons/btnTwo" to="." method="CheckColor"]
-[connection signal="pressed" from="Panel Buttons/btnThree" to="." method="CheckColor"]
-[connection signal="pressed" from="Panel Buttons/btnFour" to="." method="CheckColor"]
-[connection signal="pressed" from="Panel Buttons/btnFive" to="." method="CheckColor"]
-[connection signal="pressed" from="Panel Buttons/btnSix" to="." method="CheckColor"]
+[connection signal="pressed" from="Panel Buttons/btnOne" to="." method="CheckColor" binds= [0]]
+[connection signal="pressed" from="Panel Buttons/btnTwo" to="." method="CheckColor" binds= [1]]
+[connection signal="pressed" from="Panel Buttons/btnThree" to="." method="CheckColor" binds= [2]]
+[connection signal="pressed" from="Panel Buttons/btnFour" to="." method="CheckColor" binds= [3]]
+[connection signal="pressed" from="Panel Buttons/btnFive" to="." method="CheckColor" binds= [4]]
+[connection signal="pressed" from="Panel Buttons/btnSix" to="." method="CheckColor" binds= [5]]
 [connection signal="pressed" from="Panel Social Media/btnWeb" to="." method="OpenBrowser" binds= ["https://byerudito.web.app/"]]
 [connection signal="pressed" from="Panel Social Media/btnInstagram" to="." method="OpenBrowser" binds= ["https://www.instagram.com/theerudito/"]]
 [connection signal="pressed" from="Panel Social Media/btnGitHub" to="." method="OpenBrowser" binds= ["https://github.com/theerudito"]]
+[connection signal="timeout" from="timeGame" to="." method="Cronometer"]
+[connection signal="timeout" from="timeButtons" to="." method="Cronometer"]

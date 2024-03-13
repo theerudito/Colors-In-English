@@ -1,5 +1,5 @@
 using System;
-using System.Collections.Generic;
+using System.Collections;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -29,13 +29,20 @@ public partial class GameManager : Node
 	private bool _isPlaying = true;
 	private bool _flagEN = true;
 	private bool _isOpen = false;
+	private bool _premium = true;
 	private string _language;
 	private int _score = 0;
-	private int _time = 10;
+	private int _timeGame = 10;
+	private int _timeButtons = 1;
 
 
 	public override void _Ready()
 	{
+
+		myLabel[9].Visible = false;
+
+		var time = GetNode<Timer>("timeGame");
+		TimerManager(time);
 
 		#region SOUND
 		if (LocalStorage.LoadData("sound") == null)
@@ -82,16 +89,16 @@ public partial class GameManager : Node
 		#endregion LANGUAGE
 
 		#region SCORE
-		// if (LocalStorage.LoadData("score") == null)
-		// {
-		// 	_score = 0;
-		// 	LocalStorage.SaveData("score", _score.ToString());
-		// }
-		// else
-		// {
-		// 	_score = LocalStorage.LoadDataInt("score");
-		// 	myLabel[3].Text = _score.ToString();
-		// }
+		if (LocalStorage.LoadData("score") == null)
+		{
+			_score = 0;
+			LocalStorage.SaveData("score", _score.ToString());
+		}
+		else
+		{
+			_score = LocalStorage.LoadDataInt("score");
+			myLabel[3].Text = _score.ToString();
+		}
 		#endregion SCORE
 
 		_panelConfig = GetNode<TextureRect>("panelConfig");
@@ -101,90 +108,94 @@ public partial class GameManager : Node
 		GenerateColor();
 	}
 
-	private void CheckColor()
+	private void CheckColor(int index)
 	{
+		var selected = GetNode<Panel>("Panel Buttons").GetChild<TouchScreenButton>(index).GetChild<Label>(0);
 
-		Score(true);
-		GenerateColor();
-		Debug.Print("BUTTON 1");
+		if (myLabel[6].Text == selected.Text)
+		{
 
-		var panel = GetNode<Panel>("Panel Faces").GetChild<Sprite2D>(0);
-		panel.Texture = spriteFaces[1];
+			Score(true);
+			LocalStorage.SaveData("score", _score.ToString());
+			if (_isPlaying == true)
+			{
+				_soundGame.Stream = _audioPlayer[0];
+				_soundGame.Play();
+			}
 
-		ResetGame();
+			// MyTimer.StartTimer();
 
-
-		// if (myLabel[6].Text == _labelButtons[0].Text)
-		// {
-		// 	Score(true);
-		// 	ResetGame();
-		// 	GenerateColor();
-		// 	Debug.Print("BUTTON 1");
-		// }
-		// else if (myLabel[6].Text == _labelButtons[1].Text)
-		// {
-		// 	Score(true);
-		// 	ResetGame();
-		// 	GenerateColor();
-		// 	Debug.Print("BUTTON 2");
-		// }
-		// else if (myLabel[6].Text == _labelButtons[2].Text)
-		// {
-		// 	Score(true);
-		// 	ResetGame();
-		// 	GenerateColor();
-		// 	Debug.Print("BUTTON 3");
-		// }
-		// else if (myLabel[6].Text == _labelButtons[3].Text)
-		// {
-		// 	Score(true);
-		// 	ResetGame();
-		// 	GenerateColor();
-		// 	Debug.Print("BUTTON 4");
-		// }
-		// else if (myLabel[6].Text == _labelButtons[4].Text)
-		// {
-		// 	Score(true);
-		// 	ResetGame();
-		// 	GenerateColor();
-		// 	Debug.Print("BUTTON 5");
-		// }
-		// else if (myLabel[6].Text == _labelButtons[5].Text)
-		// {
-		// 	Score(true);
-		// 	ResetGame();
-		// 	GenerateColor();
-		// 	Debug.Print("BUTTON 6");
-		// }
-		// else
-		// {
-		// 	Score(false);
-		// 	Debug.Print("WRONG");
-		// }
-
+			// if (MyTimer.counter == 2)
+			// {
+			// 	Debug.Print("COUNTER " + MyTimer.counter);
+			// 	MyTimer.ResetTimer();
+			// 	GenerateColor();
+			// 	ResetGame();
+			// }
+			// else
+			// {
+			// 	ResetGame();
+			// }
+		}
+		else
+		{
+			Score(false);
+			LocalStorage.SaveData("score", _score.ToString());
+			if (_isPlaying == true)
+			{
+				_soundGame.Stream = _audioPlayer[1];
+				_soundGame.Play();
+			}
+		}
 	}
 
-	private void GenerateColor()
+
+	public void GenerateColor()
 	{
 		Random random = new Random();
 
-		var db = Colors.newColorEN.ToList();
-
-		var colorRamdom = random.Next(1, db.Count);
-
-		var selectColor = db.Where(x => x.IdColor == colorRamdom).FirstOrDefault();
-
-		myLabel[6].Text = selectColor.Name;
-
-		List<int> MyIndex = new List<int> { 1, 2, 3, 4, 5, selectColor.IdColor };
-
-		MyIndex = MyIndex.OrderBy(x => random.Next()).ToList();
-
-		//Debug.Print("ANSWER " + selectColor.Name + " " + selectColor.IdColor);
-
-		foreach (var item in MyIndex)
+		if (_language == "EN")
 		{
-			//Debug.Print(item.ToString());
+			var colors = Colors.newColorEN.ToList();
+
+			var colorRandomIndex = random.Next(0, colors.Count);
+
+			var selectColor = colors[colorRandomIndex];
+
+			myLabel[6].Text = selectColor.Name;
+
+			int[] MyIndex = new int[] { 1, 2, 3, 4, 5, selectColor.IdColor - 1 };
+
+			MyIndex = MyIndex.OrderBy(x => random.Next()).ToArray();
+
+			for (int i = 0; i < _btnGame.Length; i++)
+			{
+				//Debug.Print("COLOR " + colors[MyIndex[i]].Name + " " + colors[MyIndex[i]].IdColor);
+				_btnGame[i].Modulate = new Color(colors[MyIndex[i]].Hex);
+				_labelButtons[i].Text = colors[MyIndex[i]].Name;
+			}
+		}
+		else
+		{
+			var colors = Colors.newColorES.ToList();
+
+			var colorRandomIndex = random.Next(0, colors.Count);
+
+			var selectColor = colors[colorRandomIndex];
+
+			myLabel[6].Text = selectColor.Name;
+
+			int[] MyIndex = new int[] { 1, 2, 3, 4, 5, selectColor.IdColor - 1 };
+
+			MyIndex = MyIndex.OrderBy(x => random.Next()).ToArray();
+
+			for (int i = 0; i < _btnGame.Length; i++)
+			{
+				//Debug.Print("COLOR " + colors[MyIndex[i]].Name + " " + colors[MyIndex[i]].IdColor);
+				_btnGame[i].Modulate = new Color(colors[MyIndex[i]].Hex);
+				_labelButtons[i].Text = colors[MyIndex[i]].Name;
+			}
+
 		}
 
 		//myLabel[6].AddThemeFontSizeOverride("normal", 6);
@@ -205,23 +216,11 @@ public partial class GameManager : Node
 		// 	myLabel[6].AddThemeFontSizeOverride("normal", 8);
 		// 	GD.Print("8");
 		// }
-
-		for (int i = 0; i < _btnGame.Length; i++)
-		{
-
-			//Debug.Print(db[MyIndex[i]].Name);
-			_btnGame[i].Modulate = new Color(db[MyIndex[i]].Hex);
-			_labelButtons[i].Text = db[MyIndex[i]].Name;
-		}
 	}
 
 	private void ResetGame()
 	{
-		var timer = GetNode<Timer>("myTimer");
-		timer.Start();
-
-		_time = 100;
-
+		_timeGame = 10;
 		var face = GetNode<Panel>("Panel Faces").GetChild<Sprite2D>(0);
 		face.Texture = spriteFaces[0];
 		GenerateColor();
@@ -237,6 +236,7 @@ public partial class GameManager : Node
 			SoundClick();
 			ChangeLabels("ES");
 			Debug.Print("SPANISH");
+			GenerateColor();
 		}
 		else
 		{
@@ -246,6 +246,7 @@ public partial class GameManager : Node
 			SoundClick();
 			ChangeLabels("EN");
 			Debug.Print("ENGLISH");
+			GenerateColor();
 		}
 	}
 
@@ -300,8 +301,11 @@ public partial class GameManager : Node
 
 	private void SoundClick()
 	{
-		_soundGame.Stream = _audioPlayer[3];
-		_soundGame.Play();
+		if (_isPlaying == true)
+		{
+			_soundGame.Stream = _audioPlayer[2];
+			_soundGame.Play();
+		}
 	}
 
 	private void ChangeLabels(string language)
@@ -315,6 +319,7 @@ public partial class GameManager : Node
 			myLabel[5].Text = "WHATS COLOR IS";
 			myLabel[7].Text = "FOLLOW US";
 			myLabel[8].Text = infoEN;
+			myLabel[9].Text = "YOU ARE PREMIUM";
 			_btnConfig[1].TextureNormal = spriteConfing[3];
 
 		}
@@ -327,9 +332,11 @@ public partial class GameManager : Node
 			myLabel[5].Text = "QUE COLOR ES";
 			myLabel[7].Text = "SIGUENOS";
 			myLabel[8].Text = infoES;
+			myLabel[9].Text = "ERES PREMIUM";
 			_btnConfig[1].TextureNormal = spriteConfing[2];
 		}
 	}
+
 	private void Score(bool correct)
 	{
 		var panel = GetNode<Panel>("Panel Faces").GetChild<Sprite2D>(0);
@@ -355,4 +362,64 @@ public partial class GameManager : Node
 			}
 		}
 	}
+
+	private void TimerManager(Timer timer)
+	{
+		timer.Start();
+		myLabel[1].Text = _timeGame.ToString();
+		_timeGame -= 1;
+	}
+
+	private void Cronometer()
+	{
+		var timerGame = GetNode<Timer>("timeGame");
+
+		if (_timeGame < 7)
+		{
+			if (_isPlaying == true)
+			{
+				_soundGame.Stream = _audioPlayer[3];
+				_soundGame.Play();
+			}
+			myLabel[1].Modulate = new Color("Red");
+		}
+
+		if (_timeGame < 0)
+		{
+			GenerateColor();
+			_timeGame = 10;
+			timerGame.Start();
+			_soundGame.Stream = _audioPlayer[3];
+			myLabel[1].Modulate = new Color("White");
+			_soundGame.Stop();
+		}
+		else
+		{
+			TimerManager(timerGame);
+		}
+	}
+
+	private void CheckPremium()
+	{
+		// var img = GetNode<TouchScreenButton>("imgPremium");
+		// img.Call("Saludando");
+
+		if (_premium == true)
+		{
+			_premium = false;
+			myLabel[9].Visible = true;
+
+		}
+		else
+		{
+			_premium = true;
+			myLabel[9].Visible = false;
+		}
+		if (_isPlaying == true)
+		{
+			_soundGame.Stream = _audioPlayer[0];
+			_soundGame.Play();
+		}
+	}
 }
+
