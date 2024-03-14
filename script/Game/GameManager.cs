@@ -1,8 +1,6 @@
 using System;
-using System.Collections;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using Godot;
 
 
@@ -33,7 +31,7 @@ public partial class GameManager : Node
 	private string _language;
 	private int _score = 0;
 	private int _timeGame = 10;
-	private int _timeButtons = 1;
+	private int _timeButtons = 2;
 
 
 	public override void _Ready()
@@ -123,19 +121,7 @@ public partial class GameManager : Node
 				_soundGame.Play();
 			}
 
-			// MyTimer.StartTimer();
-
-			// if (MyTimer.counter == 2)
-			// {
-			// 	Debug.Print("COUNTER " + MyTimer.counter);
-			// 	MyTimer.ResetTimer();
-			// 	GenerateColor();
-			// 	ResetGame();
-			// }
-			// else
-			// {
-			// 	ResetGame();
-			// }
+			ResetGame();
 		}
 		else
 		{
@@ -148,7 +134,6 @@ public partial class GameManager : Node
 			}
 		}
 	}
-
 
 	public void GenerateColor()
 	{
@@ -220,10 +205,17 @@ public partial class GameManager : Node
 
 	private void ResetGame()
 	{
-		_timeGame = 10;
-		var face = GetNode<Panel>("Panel Faces").GetChild<Sprite2D>(0);
-		face.Texture = spriteFaces[0];
-		GenerateColor();
+
+		if (_timeButtons > 0)
+		{
+			Debug.Print("RESET GAME");
+			var face = GetNode<Panel>("Panel Faces").GetChild<Sprite2D>(0);
+			face.Texture = spriteFaces[0];
+		}
+		else
+		{
+			Debug.Print("NO RESET GAME");
+		}
 	}
 
 	private void ChangeLanguage()
@@ -365,12 +357,22 @@ public partial class GameManager : Node
 
 	private void TimerManager(Timer timer)
 	{
-		timer.Start();
-		myLabel[1].Text = _timeGame.ToString();
-		_timeGame -= 1;
+		if (timer.Name == "timeGame")
+		{
+			timer.Start();
+			myLabel[1].Text = _timeGame.ToString();
+			_timeGame -= 1;
+		}
+		else
+		{
+			timer.Start();
+			_timeButtons -= 1;
+			Debug.Print("TIMER BUTTONS " + _timeButtons.ToString());
+		}
 	}
 
-	private void Cronometer()
+
+	private void CronometerOne()
 	{
 		var timerGame = GetNode<Timer>("timeGame");
 
@@ -384,11 +386,12 @@ public partial class GameManager : Node
 			myLabel[1].Modulate = new Color("Red");
 		}
 
-		if (_timeGame < 0)
+		if (_timeGame <= 0)
 		{
-			GenerateColor();
 			_timeGame = 10;
 			timerGame.Start();
+
+			GenerateColor();
 			_soundGame.Stream = _audioPlayer[3];
 			myLabel[1].Modulate = new Color("White");
 			_soundGame.Stop();
@@ -396,6 +399,17 @@ public partial class GameManager : Node
 		else
 		{
 			TimerManager(timerGame);
+		}
+	}
+
+	private void CronometerTwo()
+	{
+		var timeButtons = GetNode<Timer>("timeButtons");
+		if (_timeButtons <= 0)
+		{
+			_timeButtons = 2;
+			timeButtons.Stop();
+			ResetGame();
 		}
 	}
 
@@ -420,6 +434,16 @@ public partial class GameManager : Node
 			_soundGame.Stream = _audioPlayer[0];
 			_soundGame.Play();
 		}
+	}
+
+	public void btnScene(string scenePath)
+	{
+		// SceneManager sceneManager = new SceneManager();
+		// sceneManager.LoadScene(scenePath);
+
+		PackedScene sceneToLoad = (PackedScene)ResourceLoader.Load($"scene/{scenePath}.tscn");
+		var newSceneInstance = sceneToLoad.Instantiate();
+		GetTree().Root.AddChild(newSceneInstance);
 	}
 }
 

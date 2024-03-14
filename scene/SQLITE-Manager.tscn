@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://cfrdctnpuekrl"]
+
+[node name="Sqlite-manager" type="Node2D"]
+
+[node name="Label" type="Label" parent="."]
+offset_left = 127.0
+offset_top = 141.0
+offset_right = 294.0
+offset_bottom = 285.0
+text = "SQLITE"
+horizontal_alignment = 1
+vertical_alignment = 1

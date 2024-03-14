@@ -17,6 +17,10 @@ boot_splash/image="res://assets/logo.png"
 boot_splash/fullsize=false
 config/icon="res://assets/icon.png"
 
+[autoload]
+
+SceneManager="*res://script/Helper/SceneManager.cs"
+
 [display]
 
 window/size/viewport_width=400
@@ -35,6 +39,19 @@ project/assembly_name="Colors In English"
 [editor_plugins]
 
 enabled=PackedStringArray()
+
+[file_customization]
+
+folder_colors={
+"res://assets/": "orange",
+"res://script/": "red",
+"res://script/Entity-FrameWork/": "orange",
+"res://script/Game/": "green",
+"res://script/Helper/": "blue",
+"res://script/JSON-Manager/": "pink",
+"res://script/LiteDB-Manager/": "blue",
+"res://script/SqliteManager/": "green"
+}
 
 [importer_defaults]
 

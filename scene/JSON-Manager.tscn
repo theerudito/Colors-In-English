@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://h40332ch0sbs"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kmcmj"]
+bg_color = Color(0, 0.698039, 0.611765, 1)
+
+[node name="JsonManager" type="Node2D"]
+
+[node name="Label" type="Label" parent="."]
+offset_left = 52.0
+offset_top = 137.0
+offset_right = 335.0
+offset_bottom = 467.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_kmcmj")
+text = "JSON"
+horizontal_alignment = 1
+vertical_alignment = 1
