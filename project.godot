@@ -19,6 +19,7 @@ config/icon="res://assets/icon.png"
 
 [autoload]
 
+CurrentScene="*res://script/Helper/CurrentScene.cs"
 SceneManager="*res://script/Helper/SceneManager.cs"
 
 [display]

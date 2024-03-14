@@ -23,7 +23,7 @@
 [ext_resource type="AudioStream" uid="uid://wk7wm7ktdebv" path="res://sound/cancel.ogg" id="17_5evxo"]
 [ext_resource type="Script" path="res://script/Game/imgPremium.cs" id="17_veooq"]
 [ext_resource type="Texture2D" uid="uid://cqce4rbf8jv5h" path="res://assets/buttonsGameDOWN.png" id="19_f48oa"]
-[ext_resource type="Script" path="res://script/Helper/SceneManager.cs" id="24_lstin"]
+[ext_resource type="PackedScene" uid="uid://ccf4drs2mqoj8" path="res://scene/Controls.tscn" id="24_40hym"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d2uxo"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -344,14 +344,7 @@ vertical_alignment = 1
 
 [node name="timeButtons" type="Timer" parent="."]
 
-[node name="Button" type="Button" parent="."]
-layout_mode = 0
-offset_left = 161.0
-offset_top = 143.0
-offset_right = 237.0
-offset_bottom = 159.0
-text = "SCENE"
-script = ExtResource("24_lstin")
+[node name="Controls" parent="." instance=ExtResource("24_40hym")]
 
 [connection signal="pressed" from="imgPremium" to="." method="CheckPremium"]
 [connection signal="pressed" from="btnConfig" to="." method="OpenPanel"]
@@ -368,4 +361,3 @@ script = ExtResource("24_lstin")
 [connection signal="pressed" from="Panel Social Media/btnGitHub" to="." method="OpenBrowser" binds= ["https://github.com/theerudito"]]
 [connection signal="timeout" from="timeGame" to="." method="CronometerOne"]
 [connection signal="timeout" from="timeButtons" to="." method="CronometerTwo"]
-[connection signal="pressed" from="Button" to="Button" method="LoadScene" binds= [&"res://scene/JSON-Manager.tscn"]]

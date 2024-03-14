@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://cfrdctnpuekrl"]
+[gd_scene load_steps=2 format=3 uid="uid://cfrdctnpuekrl"]
+
+[ext_resource type="Script" path="res://script/Helper/SceneManager.cs" id="1_7qd7o"]
 
 [node name="Sqlite-manager" type="Node2D"]
 
@@ -10,3 +12,13 @@ offset_bottom = 285.0
 text = "SQLITE"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Button" type="Button" parent="."]
+offset_left = 124.0
+offset_top = 67.0
+offset_right = 238.0
+offset_bottom = 113.0
+text = "Back"
+script = ExtResource("1_7qd7o")
+
+[connection signal="pressed" from="Button" to="Button" method="LoadScene" binds= [&"res://scene/main.tscn"]]

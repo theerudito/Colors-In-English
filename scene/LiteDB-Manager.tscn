@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://crna1kol8hv0t"]
+[gd_scene load_steps=2 format=3 uid="uid://crna1kol8hv0t"]
+
+[ext_resource type="Script" path="res://script/Helper/SceneManager.cs" id="1_4e6e1"]
 
 [node name="LiteDb-manager" type="Node2D"]
 
@@ -10,3 +12,13 @@ offset_bottom = 181.0
 text = "LITE-DB"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Button" type="Button" parent="."]
+offset_left = 136.0
+offset_top = 85.0
+offset_right = 250.0
+offset_bottom = 131.0
+text = "Back"
+script = ExtResource("1_4e6e1")
+
+[connection signal="pressed" from="Button" to="Button" method="LoadScene" binds= [&"res://scene/main.tscn"]]

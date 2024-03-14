@@ -33,9 +33,13 @@ public partial class GameManager : Node
 	private int _timeGame = 10;
 	private int _timeButtons = 2;
 
+	CurrentScene currentScene = new CurrentScene();
 
 	public override void _Ready()
 	{
+		var currentScene = GetNode<CurrentScene>("/root/CurrentScene");
+
+		currentScene.SceneName = "res://scene/JSON-Manager.tscn";
 
 		myLabel[9].Visible = false;
 
@@ -416,8 +420,8 @@ public partial class GameManager : Node
 
 	private void CheckPremium()
 	{
-		// var img = GetNode<TouchScreenButton>("imgPremium");
-		// img.Call("Saludando");
+		var scene = GetNode<CurrentScene>("/root/CurrentScene");
+		scene.SceneName = "res://scene/JSON-Manager.tscn";
 
 		if (_premium == true)
 		{
@@ -437,14 +441,5 @@ public partial class GameManager : Node
 		}
 	}
 
-	public void btnScene(string scenePath)
-	{
-		// SceneManager sceneManager = new SceneManager();
-		// sceneManager.LoadScene(scenePath);
-
-		PackedScene sceneToLoad = (PackedScene)ResourceLoader.Load($"scene/{scenePath}.tscn");
-		var newSceneInstance = sceneToLoad.Instantiate();
-		GetTree().Root.AddChild(newSceneInstance);
-	}
 }
 

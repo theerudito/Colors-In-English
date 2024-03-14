@@ -4,9 +4,10 @@ using Godot;
 
 public partial class SceneManager : Node
 {
+
 	private PackedScene loadScene;
 
-	public void LoadScene(StringName scenePath)
+	public void LoadScene(string scenePath)
 	{
 		loadScene = (PackedScene)ResourceLoader.Load(scenePath);
 

@@ -5,13 +5,15 @@ var two = load("res://scene/main.tscn")
 #@export_file("*.tscn") var sceneOne;
 #@export_file("*.tscn") var sceneTwo;
 
-func sceneNext(sceneName):
-	var loadedScene = load(sceneName)
-	if loadedScene != null:
-		get_tree().change_scene(loadedScene)
-	else:
-		print("Error: Scene is not loaded")
-		# get_tree().change_scene_to_file(sceneTwo)
+var scene: PackedScene
 
-func sceneBack():
-	get_tree().change_scene_to_packed(two)
+func loadScene(scenePath: String) -> void:
+    scene = load(scenePath)
+    if scene != null:
+        sceneChange()
+    else:
+        print("Error: Scene is not loaded")
+
+func sceneChange() -> void:
+    get_tree().change_scene_to_packed(scene)
+		#get_tree().change_scene_to_file(sceneOne)
