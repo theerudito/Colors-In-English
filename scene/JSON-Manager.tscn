@@ -1,4 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://h40332ch0sbs"]
+[gd_scene load_steps=3 format=3 uid="uid://h40332ch0sbs"]
+
+[ext_resource type="Script" path="res://script/Helper/SceneManager.cs" id="1_d55jv"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kmcmj"]
 bg_color = Color(0, 0.698039, 0.611765, 1)
@@ -14,3 +16,13 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_kmcmj")
 text = "JSON"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Button" type="Button" parent="."]
+offset_left = 124.0
+offset_top = 67.0
+offset_right = 238.0
+offset_bottom = 113.0
+text = "Back"
+script = ExtResource("1_d55jv")
+
+[connection signal="pressed" from="Button" to="Button" method="LoadScene" binds= [&"res://scene/main.tscn"]]

@@ -203,11 +203,12 @@ public partial class GameManager : Node
 		// }
 	}
 
-	private void ResetGame()
+	private async void ResetGame()
 	{
 
 		if (_timeButtons > 0)
 		{
+			_timeButtons = 2;
 			Debug.Print("RESET GAME");
 			var face = GetNode<Panel>("Panel Faces").GetChild<Sprite2D>(0);
 			face.Texture = spriteFaces[0];

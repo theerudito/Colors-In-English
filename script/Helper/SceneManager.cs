@@ -1,12 +1,27 @@
+using System.Diagnostics;
 using Godot;
 
 
 public partial class SceneManager : Node
 {
-	public void LoadScene(string scenePath)
+	private PackedScene loadScene;
+
+	public void LoadScene(StringName scenePath)
 	{
-		PackedScene sceneToLoad = (PackedScene)ResourceLoader.Load($"scene/{scenePath}.tscn");
-		var newSceneInstance = sceneToLoad.Instantiate();
-		GetTree().Root.AddChild(newSceneInstance);
+		loadScene = (PackedScene)ResourceLoader.Load(scenePath);
+
+		if (loadScene != null)
+		{
+			SceneChange();
+		}
+		else
+		{
+			Debug.Print("Error: Scene is not loaded");
+		}
+	}
+
+	private void SceneChange()
+	{
+		GetTree().ChangeSceneToPacked(loadScene);
 	}
 }
