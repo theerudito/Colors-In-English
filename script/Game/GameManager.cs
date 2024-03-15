@@ -1,7 +1,6 @@
 using System;
 using System.Diagnostics;
 using System.Linq;
-using ColorsInEnglish.script;
 using Godot;
 
 
@@ -16,9 +15,7 @@ public partial class GameManager : Node
 	[Export]
 	private TouchScreenButton[] _btnConfig;
 	[Export]
-	private TouchScreenButton[] _btnGame;
-	[Export]
-	private Label[] _labelButtons;
+	private Button[] _btnGame;
 	[Export]
 	private AudioStream[] _audioPlayer;
 	private TextureRect _panelConfig;
@@ -113,11 +110,10 @@ public partial class GameManager : Node
 
 	private void CheckColor(int index)
 	{
-		var selected = GetNode<Panel>("Panel Buttons").GetChild<TouchScreenButton>(index).GetChild<Label>(0);
+		var selected = GetNode<Panel>("Panel Buttons").GetChild<Button>(index);
 
 		if (myLabel[6].Text == selected.Text)
 		{
-
 			Score(true);
 			LocalStorage.SaveData("score", _score.ToString());
 			if (_isPlaying == true)
@@ -125,7 +121,10 @@ public partial class GameManager : Node
 				_soundGame.Stream = _audioPlayer[0];
 				_soundGame.Play();
 			}
-
+			for (int i = 0; i < _btnGame.Length; i++)
+			{
+				_btnGame[i].Disabled = true;
+			}
 			ResetGame();
 		}
 		else
@@ -137,6 +136,7 @@ public partial class GameManager : Node
 				_soundGame.Stream = _audioPlayer[1];
 				_soundGame.Play();
 			}
+			_btnGame[index].Disabled = true;
 		}
 	}
 
@@ -152,6 +152,15 @@ public partial class GameManager : Node
 
 			var selectColor = colors[colorRandomIndex];
 
+			if (selectColor.Name.Length > 10)
+			{
+				myLabel[6].AddThemeFontSizeOverride("font_size", 20);
+			}
+			else
+			{
+				myLabel[6].AddThemeFontSizeOverride("font_size", 30);
+			}
+
 			myLabel[6].Text = selectColor.Name;
 
 			int[] MyIndex = new int[] { 1, 2, 3, 4, 5, selectColor.IdColor - 1 };
@@ -160,9 +169,10 @@ public partial class GameManager : Node
 
 			for (int i = 0; i < _btnGame.Length; i++)
 			{
-				//Debug.Print("COLOR " + colors[MyIndex[i]].Name + " " + colors[MyIndex[i]].IdColor);
 				_btnGame[i].Modulate = new Color(colors[MyIndex[i]].Hex);
-				_labelButtons[i].Text = colors[MyIndex[i]].Name;
+				_btnGame[i].Text = colors[MyIndex[i]].Name;
+				_btnGame[i].AddThemeColorOverride("font_color", new Color("Transparent"));
+				_btnGame[i].Disabled = false;
 			}
 		}
 		else
@@ -183,45 +193,21 @@ public partial class GameManager : Node
 			{
 				//Debug.Print("COLOR " + colors[MyIndex[i]].Name + " " + colors[MyIndex[i]].IdColor);
 				_btnGame[i].Modulate = new Color(colors[MyIndex[i]].Hex);
-				_labelButtons[i].Text = colors[MyIndex[i]].Name;
+				_btnGame[i].Text = colors[MyIndex[i]].Name;
+				_btnGame[i].AddThemeColorOverride("font_color", new Color("Transparent"));
+				_btnGame[i].Disabled = false;
 			}
-
 		}
-
-		//myLabel[6].AddThemeFontSizeOverride("normal", 6);
-
-
-		// if (myLabel[6].Text.Length < 7)
-		// {
-		// 	myLabel[6].AddThemeFontSizeOverride("bold", 20);
-		// 	GD.Print("20");
-		// }
-		// else if (selectColor.Name.Length < 10)
-		// {
-		// 	myLabel[6].AddThemeFontSizeOverride("normal", 6);
-		// 	GD.Print("10");
-		// }
-		// else
-		// {
-		// 	myLabel[6].AddThemeFontSizeOverride("normal", 8);
-		// 	GD.Print("8");
-		// }
 	}
 
 	private async void ResetGame()
 	{
-
-		if (_timeButtons > 0)
-		{
-			_timeButtons = 2;
-			Debug.Print("RESET GAME");
-			var face = GetNode<Panel>("Panel Faces").GetChild<Sprite2D>(0);
-			face.Texture = spriteFaces[0];
-		}
-		else
-		{
-			Debug.Print("NO RESET GAME");
-		}
+		await ToSignal(GetTree().CreateTimer(2), "timeout");
+		var face = GetNode<Panel>("Panel Faces").GetChild<Sprite2D>(0);
+		face.Texture = spriteFaces[0];
+		GenerateColor();
+		_timeGame = 10;
+		myLabel[1].Modulate = new Color("White");
 	}
 
 	private void ChangeLanguage()
@@ -363,18 +349,9 @@ public partial class GameManager : Node
 
 	private void TimerManager(Timer timer)
 	{
-		if (timer.Name == "timeGame")
-		{
-			timer.Start();
-			myLabel[1].Text = _timeGame.ToString();
-			_timeGame -= 1;
-		}
-		else
-		{
-			timer.Start();
-			_timeButtons -= 1;
-			Debug.Print("TIMER BUTTONS " + _timeButtons.ToString());
-		}
+		timer.Start();
+		myLabel[1].Text = _timeGame.ToString();
+		_timeGame -= 1;
 	}
 
 	private void CronometerOne()
@@ -404,17 +381,6 @@ public partial class GameManager : Node
 		else
 		{
 			TimerManager(timerGame);
-		}
-	}
-
-	private void CronometerTwo()
-	{
-		var timeButtons = GetNode<Timer>("timeButtons");
-		if (_timeButtons <= 0)
-		{
-			_timeButtons = 2;
-			timeButtons.Stop();
-			ResetGame();
 		}
 	}
 

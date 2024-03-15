@@ -1,28 +1,46 @@
-[gd_scene load_steps=3 format=3 uid="uid://h40332ch0sbs"]
+[gd_scene load_steps=5 format=3 uid="uid://h40332ch0sbs"]
 
 [ext_resource type="Script" path="res://script/Helper/SceneManager.cs" id="1_d55jv"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kmcmj"]
 bg_color = Color(0, 0.698039, 0.611765, 1)
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_pqwb0"]
+load_path = "res://.godot/imported/buttonsUP.png-84e0f1f6094859d270832019e15fcc1e.ctex"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_84gkq"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
 [node name="JsonManager" type="Node2D"]
 
 [node name="Label" type="Label" parent="."]
-offset_left = 52.0
-offset_top = 137.0
-offset_right = 335.0
-offset_bottom = 467.0
+offset_left = 53.0
+offset_top = 186.0
+offset_right = 336.0
+offset_bottom = 409.0
 theme_override_styles/normal = SubResource("StyleBoxFlat_kmcmj")
 text = "JSON"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Button" type="Button" parent="."]
-offset_left = 124.0
-offset_top = 67.0
-offset_right = 238.0
-offset_bottom = 113.0
-text = "Back"
+offset_left = 41.0
+offset_top = 36.0
+offset_right = 349.0
+offset_bottom = 144.0
+icon = SubResource("CompressedTexture2D_pqwb0")
 script = ExtResource("1_d55jv")
+
+[node name="Button2" type="Button" parent="."]
+offset_left = 56.0
+offset_top = 474.0
+offset_right = 286.0
+offset_bottom = 554.0
+mouse_filter = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_84gkq")
+text = "BACK"
+icon = SubResource("CompressedTexture2D_pqwb0")
+icon_alignment = 1
+expand_icon = true
 
 [connection signal="pressed" from="Button" to="Button" method="LoadScene" binds= [&"res://scene/main.tscn"]]
