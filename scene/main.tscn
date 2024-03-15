@@ -55,7 +55,7 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_top = 1.0
-offset_bottom = 1.0
+offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_shxy6")
@@ -196,8 +196,8 @@ anchor_left = 0.025
 anchor_top = 0.302
 anchor_right = 0.982
 anchor_bottom = 0.347
-offset_top = -0.200012
-offset_right = 0.199982
+offset_top = -0.200027
+offset_right = 0.199951
 offset_bottom = -0.199997
 theme_override_fonts/font = ExtResource("2_7gpmf")
 theme_override_font_sizes/font_size = 25
@@ -344,7 +344,7 @@ vertical_alignment = 1
 
 [node name="timeButtons" type="Timer" parent="."]
 
-[node name="Controls" parent="." instance=ExtResource("24_40hym")]
+[node name="myControls" parent="." instance=ExtResource("24_40hym")]
 
 [connection signal="pressed" from="imgPremium" to="." method="CheckPremium"]
 [connection signal="pressed" from="btnConfig" to="." method="OpenPanel"]

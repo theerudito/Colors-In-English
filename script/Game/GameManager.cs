@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.Linq;
+using ColorsInEnglish.script;
 using Godot;
 
 
@@ -375,7 +376,6 @@ public partial class GameManager : Node
 			Debug.Print("TIMER BUTTONS " + _timeButtons.ToString());
 		}
 	}
-
 
 	private void CronometerOne()
 	{
