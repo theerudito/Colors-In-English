@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://h40332ch0sbs"]
+[gd_scene load_steps=5 format=3 uid="uid://h40332ch0sbs"]
 
 [ext_resource type="Script" path="res://script/JSON-Manager/JSON_Manager.cs" id="1_8ob7k"]
 [ext_resource type="PackedScene" uid="uid://ccf4drs2mqoj8" path="res://scene/Controls.tscn" id="1_pdf7h"]
 [ext_resource type="Texture2D" uid="uid://4plah2focpax" path="res://assets/buttonsUP.png" id="2_ujkgc"]
+
+[sub_resource type="Theme" id="Theme_1cflk"]
 
 [node name="JsonManager" type="Node2D" node_paths=PackedStringArray("inputData")]
 script = ExtResource("1_8ob7k")
@@ -56,6 +58,8 @@ offset_left = 62.0
 offset_top = -6.0
 offset_right = 193.0
 offset_bottom = 29.0
+theme = SubResource("Theme_1cflk")
+text = "Clan"
 placeholder_text = "Name"
 
 [node name="Age" type="Label" parent="."]
@@ -71,7 +75,7 @@ offset_left = 62.0
 offset_top = -5.0
 offset_right = 193.0
 offset_bottom = 30.0
-placeholder_text = "Name"
+placeholder_text = "Age"
 
 [node name="btnPOST" type="TouchScreenButton" parent="."]
 modulate = Color(0, 0.25098, 1, 1)
