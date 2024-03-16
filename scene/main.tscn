@@ -389,8 +389,7 @@ vertical_alignment = 1
 
 [node name="timeGame" type="Timer" parent="."]
 
-[node name="myControls" parent="." instance=ExtResource("24_40hym")]
-visible = false
+[node name="Controls" parent="." instance=ExtResource("24_40hym")]
 
 [connection signal="pressed" from="imgPremium" to="." method="CheckPremium"]
 [connection signal="pressed" from="btnConfig" to="." method="OpenPanel"]

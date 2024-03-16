@@ -5,6 +5,7 @@
 [ext_resource type="Script" path="res://script/Helper/CurrentScene.cs" id="3_jycpn"]
 
 [node name="Controls" type="Node2D"]
+script = ExtResource("3_jycpn")
 
 [node name="btnBack" type="TouchScreenButton" parent="."]
 position = Vector2(41, 580)
@@ -15,6 +16,6 @@ texture_normal = ExtResource("1_yey0q")
 position = Vector2(335, 580)
 scale = Vector2(0.5, 0.3)
 texture_normal = ExtResource("3_afdal")
-script = ExtResource("3_jycpn")
 
-[connection signal="pressed" from="btnNext" to="btnNext" method="LoadScene"]
+[connection signal="pressed" from="btnBack" to="." method="ChangeScene"]
+[connection signal="pressed" from="btnNext" to="." method="ChangeScene"]

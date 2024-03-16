@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.Linq;
+using ColorsInEnglish.script;
 using Godot;
 
 
@@ -31,13 +32,12 @@ public partial class GameManager : Node
 	private int _timeGame = 10;
 	private int _timeButtons = 2;
 
-	CurrentScene currentScene = new CurrentScene();
 
 	public override void _Ready()
 	{
-		var currentScene = GetNode<CurrentScene>("/root/CurrentScene");
-
-		currentScene.SceneName = "res://scene/JSON-Manager.tscn";
+		var buttonsControls = GetNode<Node>("Controls");
+		var scene = "res://scene/JSON-Manager.tscn";
+		buttonsControls.Call("LoadScene", scene);
 
 		myLabel[9].Visible = false;
 
@@ -386,8 +386,8 @@ public partial class GameManager : Node
 
 	private void CheckPremium()
 	{
-		var scene = GetNode<CurrentScene>("/root/CurrentScene");
-		scene.SceneName = "res://scene/JSON-Manager.tscn";
+		// var scene = GetNode<CurrentScene>("/root/CurrentScene");
+		// scene.SceneName = "res://scene/JSON-Manager.tscn";
 
 		if (_premium == true)
 		{
@@ -407,5 +407,11 @@ public partial class GameManager : Node
 		}
 	}
 
+	private void Scene()
+	{
+		var buttonsControls = GetNode<Node>("Controls");
+		var scene = "res://scene/JSON-Manager.tscn";
+		buttonsControls.Call("LoadScene", scene);
+	}
 }
 

@@ -1,46 +1,175 @@
-[gd_scene load_steps=5 format=3 uid="uid://h40332ch0sbs"]
+[gd_scene load_steps=4 format=3 uid="uid://h40332ch0sbs"]
 
-[ext_resource type="Script" path="res://script/Helper/SceneManager.cs" id="1_d55jv"]
+[ext_resource type="Script" path="res://script/JSON-Manager/JSON_Manager.cs" id="1_8ob7k"]
+[ext_resource type="PackedScene" uid="uid://ccf4drs2mqoj8" path="res://scene/Controls.tscn" id="1_pdf7h"]
+[ext_resource type="Texture2D" uid="uid://4plah2focpax" path="res://assets/buttonsUP.png" id="2_ujkgc"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kmcmj"]
-bg_color = Color(0, 0.698039, 0.611765, 1)
+[node name="JsonManager" type="Node2D" node_paths=PackedStringArray("inputData")]
+script = ExtResource("1_8ob7k")
+inputData = [NodePath("Name/inputName"), NodePath("Clan/inputClan"), NodePath("Age/inputAge")]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_pqwb0"]
-load_path = "res://.godot/imported/buttonsUP.png-84e0f1f6094859d270832019e15fcc1e.ctex"
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_84gkq"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-
-[node name="JsonManager" type="Node2D"]
-
-[node name="Label" type="Label" parent="."]
-offset_left = 53.0
-offset_top = 186.0
-offset_right = 336.0
-offset_bottom = 409.0
-theme_override_styles/normal = SubResource("StyleBoxFlat_kmcmj")
+[node name="txtInfo" type="Label" parent="."]
+offset_left = 61.0
+offset_top = 23.0
+offset_right = 344.0
+offset_bottom = 46.0
 text = "JSON"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Button" type="Button" parent="."]
-offset_left = 41.0
-offset_top = 36.0
-offset_right = 349.0
-offset_bottom = 144.0
-icon = SubResource("CompressedTexture2D_pqwb0")
-script = ExtResource("1_d55jv")
+[node name="txtPath" type="Label" parent="."]
+offset_left = 22.0
+offset_top = 63.0
+offset_right = 388.0
+offset_bottom = 86.0
+theme_override_font_sizes/font_size = 12
+text = "Path:"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="Button2" type="Button" parent="."]
-offset_left = 56.0
-offset_top = 474.0
-offset_right = 286.0
-offset_bottom = 554.0
-mouse_filter = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_84gkq")
-text = "BACK"
-icon = SubResource("CompressedTexture2D_pqwb0")
-icon_alignment = 1
-expand_icon = true
+[node name="Name" type="Label" parent="."]
+offset_left = 98.0
+offset_top = 103.0
+offset_right = 153.0
+offset_bottom = 126.0
+text = "Name:"
+vertical_alignment = 1
 
-[connection signal="pressed" from="Button" to="Button" method="LoadScene" binds= [&"res://scene/main.tscn"]]
+[node name="inputName" type="TextEdit" parent="Name"]
+layout_mode = 0
+offset_left = 62.0
+offset_top = -7.0
+offset_right = 193.0
+offset_bottom = 28.0
+placeholder_text = "Name"
+
+[node name="Clan" type="Label" parent="."]
+offset_left = 98.0
+offset_top = 145.0
+offset_right = 150.0
+offset_bottom = 168.0
+text = "Clan:"
+vertical_alignment = 1
+
+[node name="inputClan" type="TextEdit" parent="Clan"]
+offset_left = 62.0
+offset_top = -6.0
+offset_right = 193.0
+offset_bottom = 29.0
+placeholder_text = "Name"
+
+[node name="Age" type="Label" parent="."]
+offset_left = 98.0
+offset_top = 187.0
+offset_right = 155.0
+offset_bottom = 210.0
+text = "Age:"
+vertical_alignment = 1
+
+[node name="inputAge" type="TextEdit" parent="Age"]
+offset_left = 62.0
+offset_top = -5.0
+offset_right = 193.0
+offset_bottom = 30.0
+placeholder_text = "Name"
+
+[node name="btnPOST" type="TouchScreenButton" parent="."]
+modulate = Color(0, 0.25098, 1, 1)
+position = Vector2(161, 227)
+scale = Vector2(0.242424, 0.400001)
+texture_normal = ExtResource("2_ujkgc")
+
+[node name="Label" type="Label" parent="btnPOST"]
+modulate = Color(0, 0, 0, 1)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -51.5
+offset_top = -17.0
+offset_right = 51.5
+offset_bottom = 17.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+text = "POST"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="btnGET" type="TouchScreenButton" parent="."]
+modulate = Color(1, 0.117647, 0.0235294, 1)
+position = Vector2(250, 227)
+scale = Vector2(0.242424, 0.400001)
+texture_normal = ExtResource("2_ujkgc")
+
+[node name="Label" type="Label" parent="btnGET"]
+modulate = Color(0, 0, 0, 1)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -43.5
+offset_top = -17.0
+offset_right = 43.5
+offset_bottom = 17.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+text = "GET"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="btnUPDATE" type="TouchScreenButton" parent="."]
+modulate = Color(0.145098, 1, 0.247059, 1)
+position = Vector2(161, 248)
+scale = Vector2(0.242424, 0.400001)
+texture_normal = ExtResource("2_ujkgc")
+
+[node name="Label" type="Label" parent="btnUPDATE"]
+modulate = Color(0, 0, 0, 1)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -53.5
+offset_top = -17.0
+offset_right = 53.5
+offset_bottom = 17.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+text = "UPDATE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="btnDELETE" type="TouchScreenButton" parent="."]
+modulate = Color(0.729412, 0, 0.113725, 1)
+position = Vector2(250, 249)
+scale = Vector2(0.242424, 0.400001)
+texture_normal = ExtResource("2_ujkgc")
+
+[node name="Label" type="Label" parent="btnDELETE"]
+modulate = Color(0, 0, 0, 1)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -55.5
+offset_top = -17.0
+offset_right = 55.5
+offset_bottom = 17.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+text = "DELETE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Controls" parent="." instance=ExtResource("1_pdf7h")]
+
+[connection signal="pressed" from="btnPOST" to="." method="POST"]
+[connection signal="pressed" from="btnGET" to="." method="GET"]

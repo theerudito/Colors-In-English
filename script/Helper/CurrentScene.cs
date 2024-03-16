@@ -3,22 +3,19 @@ using Godot;
 
 public partial class CurrentScene : Node
 {
-	private string sceneName = "";
+	public string sceneName = "";
 
 	[Signal]
 	public delegate void MySceneEventHandler();
 
-	public string SceneName
+	public void LoadScene(string name)
 	{
-		get { return sceneName; }
-		set { sceneName = value; }
+		sceneName = name;
 	}
 
-	public void LoadScene()
+	public void ChangeScene()
 	{
 		var currentScene = GetNode<SceneManager>("/root/SceneManager");
-		
-		currentScene.LoadScene("res://scene/JSON-Manager.tscn");
-		Debug.Print("CurrentScene: " + sceneName);
+		currentScene.LoadScene(sceneName);
 	}
 }
