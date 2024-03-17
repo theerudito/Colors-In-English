@@ -1,8 +1,11 @@
 using System.Collections.Generic;
+using LiteDB;
 
 public class Naruto
 {
 	public int IdCharacter { get; set; }
+	[BsonId]
+	public ObjectId IdNaruto { get; set; }
 	public string Name { get; set; }
 	public string Clan { get; set; }
 	public int Age { get; set; }

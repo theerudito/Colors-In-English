@@ -8,7 +8,7 @@
 
 [node name="JsonManager" type="Node2D" node_paths=PackedStringArray("inputData")]
 script = ExtResource("1_8ob7k")
-inputData = [NodePath("Name/inputName"), NodePath("Clan/inputClan"), NodePath("Age/inputAge")]
+inputData = [NodePath("Id/inputId"), NodePath("Name/inputName"), NodePath("Clan/inputClan"), NodePath("Age/inputAge")]
 
 [node name="txtInfo" type="Label" parent="."]
 offset_left = 61.0
@@ -20,20 +20,36 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="txtPath" type="Label" parent="."]
-offset_left = 22.0
+offset_left = 9.0
 offset_top = 63.0
 offset_right = 388.0
 offset_bottom = 86.0
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 8
 text = "Path:"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Name" type="Label" parent="."]
+[node name="Id" type="Label" parent="."]
 offset_left = 98.0
 offset_top = 103.0
 offset_right = 153.0
 offset_bottom = 126.0
+text = "Id"
+vertical_alignment = 1
+
+[node name="inputId" type="TextEdit" parent="Id"]
+layout_mode = 0
+offset_left = 62.0
+offset_top = -7.0
+offset_right = 193.0
+offset_bottom = 28.0
+placeholder_text = "Id"
+
+[node name="Name" type="Label" parent="."]
+offset_left = 98.0
+offset_top = 147.0
+offset_right = 153.0
+offset_bottom = 170.0
 text = "Name:"
 vertical_alignment = 1
 
@@ -47,30 +63,31 @@ placeholder_text = "Name"
 
 [node name="Clan" type="Label" parent="."]
 offset_left = 98.0
-offset_top = 145.0
+offset_top = 189.0
 offset_right = 150.0
-offset_bottom = 168.0
+offset_bottom = 212.0
 text = "Clan:"
 vertical_alignment = 1
 
 [node name="inputClan" type="TextEdit" parent="Clan"]
+layout_mode = 0
 offset_left = 62.0
 offset_top = -6.0
 offset_right = 193.0
 offset_bottom = 29.0
 theme = SubResource("Theme_1cflk")
-text = "Clan"
-placeholder_text = "Name"
+placeholder_text = "Clan"
 
 [node name="Age" type="Label" parent="."]
 offset_left = 98.0
-offset_top = 187.0
+offset_top = 231.0
 offset_right = 155.0
-offset_bottom = 210.0
+offset_bottom = 254.0
 text = "Age:"
 vertical_alignment = 1
 
 [node name="inputAge" type="TextEdit" parent="Age"]
+layout_mode = 0
 offset_left = 62.0
 offset_top = -5.0
 offset_right = 193.0
@@ -79,7 +96,7 @@ placeholder_text = "Age"
 
 [node name="btnPOST" type="TouchScreenButton" parent="."]
 modulate = Color(0, 0.25098, 1, 1)
-position = Vector2(161, 227)
+position = Vector2(161, 271)
 scale = Vector2(0.242424, 0.400001)
 texture_normal = ExtResource("2_ujkgc")
 
@@ -103,7 +120,7 @@ vertical_alignment = 1
 
 [node name="btnGET" type="TouchScreenButton" parent="."]
 modulate = Color(1, 0.117647, 0.0235294, 1)
-position = Vector2(250, 227)
+position = Vector2(250, 271)
 scale = Vector2(0.242424, 0.400001)
 texture_normal = ExtResource("2_ujkgc")
 
@@ -127,7 +144,7 @@ vertical_alignment = 1
 
 [node name="btnUPDATE" type="TouchScreenButton" parent="."]
 modulate = Color(0.145098, 1, 0.247059, 1)
-position = Vector2(161, 248)
+position = Vector2(161, 292)
 scale = Vector2(0.242424, 0.400001)
 texture_normal = ExtResource("2_ujkgc")
 
@@ -151,7 +168,7 @@ vertical_alignment = 1
 
 [node name="btnDELETE" type="TouchScreenButton" parent="."]
 modulate = Color(0.729412, 0, 0.113725, 1)
-position = Vector2(250, 249)
+position = Vector2(250, 293)
 scale = Vector2(0.242424, 0.400001)
 texture_normal = ExtResource("2_ujkgc")
 
@@ -177,3 +194,5 @@ vertical_alignment = 1
 
 [connection signal="pressed" from="btnPOST" to="." method="POST"]
 [connection signal="pressed" from="btnGET" to="." method="GET"]
+[connection signal="pressed" from="btnUPDATE" to="." method="PUT"]
+[connection signal="pressed" from="btnDELETE" to="." method="DELETE"]
