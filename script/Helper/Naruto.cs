@@ -1,10 +1,13 @@
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using LiteDB;
 
 public class Naruto
 {
 	public int IdCharacter { get; set; }
+
 	[BsonId]
+	[NotMapped]
 	public ObjectId IdNaruto { get; set; }
 	public string Name { get; set; }
 	public string Clan { get; set; }

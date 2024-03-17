@@ -1,7 +1,6 @@
 using Godot;
 using LiteDB;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -12,7 +11,7 @@ public partial class LiteDB_Manager : Node
 	[Export]
 	private TextEdit[] inputData;
 	private Label txtLabel;
-	private string nameFile = "Characters.db";
+	private string nameFile = "Naruto-LITE-DB.db";
 	private string _path;
 	private bool _isSelect = false;
 	public override void _Ready()
@@ -26,7 +25,6 @@ public partial class LiteDB_Manager : Node
 		var buttonsControls = GetNode<Node>("Controls");
 		var scene = "res://scene/SQLITE-Manager.tscn";
 		buttonsControls.Call("LoadScene", scene);
-
 		LOAD();
 	}
 

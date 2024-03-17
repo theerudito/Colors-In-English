@@ -12,7 +12,7 @@ public partial class JSON_Manager : Node
 	[Export]
 	private TextEdit[] inputData;
 	private Label txtLabel;
-	private string nameFile = "Naruto.json";
+	private string nameFile = "Naruto-JSON.json";
 	private string _path;
 	private bool _isSelect = false;
 

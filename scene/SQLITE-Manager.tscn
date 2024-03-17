@@ -1,18 +1,21 @@
-[gd_scene load_steps=4 format=3 uid="uid://cfrdctnpuekrl"]
+[gd_scene load_steps=5 format=3 uid="uid://cfrdctnpuekrl"]
 
 [ext_resource type="Texture2D" uid="uid://4plah2focpax" path="res://assets/buttonsUP.png" id="1_026wh"]
+[ext_resource type="Script" path="res://script/SqliteManager/Sqlite_Manager.cs" id="1_klndq"]
 [ext_resource type="PackedScene" uid="uid://ccf4drs2mqoj8" path="res://scene/Controls.tscn" id="2_0srqx"]
 
 [sub_resource type="Theme" id="Theme_cvwj0"]
 
-[node name="Sqlite-manager" type="Node2D"]
+[node name="Sqlite-manager" type="Node2D" node_paths=PackedStringArray("inputData")]
+script = ExtResource("1_klndq")
+inputData = [NodePath("Id/inputId"), NodePath("Name/inputName"), NodePath("Clan/inputClan"), NodePath("Age/inputAge")]
 
 [node name="txtInfo" type="Label" parent="."]
 offset_left = 61.0
 offset_top = 23.0
 offset_right = 344.0
 offset_bottom = 46.0
-text = "JSON"
+text = "SQLITE"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -188,3 +191,8 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Controls" parent="." instance=ExtResource("2_0srqx")]
+
+[connection signal="pressed" from="btnPOST" to="." method="POST"]
+[connection signal="pressed" from="btnGET" to="." method="GET"]
+[connection signal="pressed" from="btnUPDATE" to="." method="PUT"]
+[connection signal="pressed" from="btnDELETE" to="." method="DELETE"]

@@ -4,7 +4,7 @@ namespace ColorsInEnglish.script
 {
     public partial class GameContext : DbContext
     {
-        public DbSet<Colors> Colors { get; set; }
+        public DbSet<Naruto> Naruto { get; set; }
         public GameContext()
         {
             Database.EnsureCreated();
@@ -17,14 +17,18 @@ namespace ColorsInEnglish.script
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Colors>().ToTable("Colors");
-            modelBuilder.Entity<Colors>().HasKey(c => c.IdColor);
-            modelBuilder.Entity<Colors>().Property(c => c.Name).IsRequired();
-            modelBuilder.Entity<Colors>().Property(c => c.Hex).IsRequired();
-            modelBuilder.Entity<Colors>().HasData(
-                new Colors { IdColor = 1, Name = "YELLOW", Hex = "#FFFF00" },
-                new Colors { IdColor = 2, Name = "BLUE", Hex = "#0000FF" },
-                new Colors { IdColor = 3, Name = "RED", Hex = "#FF0000" });
+            modelBuilder.Entity<Naruto>().ToTable("Characters");
+            modelBuilder.Entity<Naruto>().HasKey(c => c.IdCharacter);
+            modelBuilder.Entity<Naruto>().Property(c => c.Name).IsRequired();
+            modelBuilder.Entity<Naruto>().Property(c => c.Clan).IsRequired();
+            modelBuilder.Entity<Naruto>().Property(c => c.Age).IsRequired();
+            modelBuilder.Entity<Naruto>().Property(c => c.Avatar).IsRequired();
+            modelBuilder.Entity<Naruto>().HasData(
+                new Naruto { IdCharacter = 1, Name = "NARUTO", Clan = "UZUMAKI", Age = 15, Avatar = "https://api.dicebear.com/7.x/micah/png?seed=img1&radius=50&backgroundColor=d1d4f9" },
+                new Naruto { IdCharacter = 2, Name = "HINATA", Clan = "HYUGA", Age = 15, Avatar = "https://api.dicebear.com/7.x/micah/png?seed=img2&radius=50&backgroundColor=d1d4f9" },
+                new Naruto { IdCharacter = 3, Name = "SASUKE", Clan = "UCHIHA", Age = 15, Avatar = "https://api.dicebear.com/7.x/micah/png?seed=img3&radius=50&backgroundColor=d1d4f9" },
+                new Naruto { IdCharacter = 4, Name = "SAKURA", Clan = "HARUNO", Age = 15, Avatar = "https://api.dicebear.com/7.x/micah/png?seed=img4&radius=50&backgroundColor=d1d4f9" }
+            );
         }
     }
 }

@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.IO;
 public partial class ConnectionDB : Node
 {
-	private static string nameDatabase = "Colors.db";
+	private static string nameDatabase = "Naruto-SQLITE.db";
 	public static string GetConnection()
 	{
 		var pathDatabase = "";
