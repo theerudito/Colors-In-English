@@ -50,7 +50,7 @@ public partial class API_Manager : Node2D
 
 		var image = GetNode<TextureRect>("img");
 
-		LoadImage(data.avatar);
+		//LoadImage(data.avatar);
 	}
 
 	public async void LoadImage(string url)
