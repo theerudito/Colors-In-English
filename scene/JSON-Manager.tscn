@@ -192,6 +192,17 @@ vertical_alignment = 1
 
 [node name="Controls" parent="." instance=ExtResource("1_pdf7h")]
 
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+offset_left = 18.0
+offset_top = 315.0
+offset_right = 378.0
+offset_bottom = 565.0
+
+[node name="ColorRect" type="ColorRect" parent="ScrollContainer"]
+custom_minimum_size = Vector2(360, 600)
+layout_mode = 2
+color = Color(0.113725, 0.85098, 0.886275, 1)
+
 [connection signal="pressed" from="btnPOST" to="." method="POST"]
 [connection signal="pressed" from="btnGET" to="." method="GET"]
 [connection signal="pressed" from="btnUPDATE" to="." method="PUT"]

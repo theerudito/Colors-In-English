@@ -27,6 +27,8 @@ public partial class JSON_Manager : Node
 		var buttonsControls = GetNode<Node>("Controls");
 		var scene = "res://scene/LiteDB-Manager.tscn";
 		buttonsControls.Call("LoadScene", scene);
+
+		LOAD();
 	}
 
 	private void CreateJSON()
@@ -57,6 +59,62 @@ public partial class JSON_Manager : Node
 		}
 	}
 
+	private void LOAD()
+	{
+		int PANEL_MARGIN = 10;
+		var json = File.ReadAllText(_path);
+
+		var data = JsonConvert.DeserializeObject<List<Naruto>>(json);
+
+		var scroll = GetNode<ScrollContainer>("ScrollContainer");
+		var color = scroll.GetNode<ColorRect>("ColorRect");
+
+		var yPos = 0;
+
+		foreach (var character in data)
+		{
+			var panel = new Panel();
+
+			panel.Position = new Vector2(0, 0);
+
+			panel.Size = new Vector2(300, 40);
+
+			color.AddChild(panel);
+
+			var idLabel = new Label();
+			idLabel.Position = new Vector2(10, 10);
+			idLabel.Text = character.IdCharacter.ToString();
+			panel.AddChild(idLabel);
+
+			var nameLabel = new Label();
+			nameLabel.Position = new Vector2(70, 10);
+			nameLabel.Text = character.Name;
+			panel.AddChild(nameLabel);
+
+			var clanLabel = new Label();
+			clanLabel.Position = new Vector2(171, 10);
+			clanLabel.Text = character.Clan;
+			panel.AddChild(clanLabel);
+
+			var ageLabel = new Label();
+			ageLabel.Position = new Vector2(259, 10);
+			ageLabel.Text = character.Age.ToString();
+			panel.AddChild(ageLabel);
+
+			// var deleteButton = new Button();
+			// deleteButton.Text = "Delete";
+			// panel.AddChild(deleteButton);
+
+			// var getButton = new Button();
+			// getButton.Text = "Get";
+			// panel.AddChild(getButton);
+
+			yPos += 42;
+			panel.Position = new Vector2(10, yPos);
+
+		}
+
+	}
 	private void POST()
 	{
 		if (File.Exists(_path))
