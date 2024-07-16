@@ -402,7 +402,7 @@ visible = false
 [connection signal="pressed" from="Panel Buttons/btnFour" to="." method="CheckColor" binds= [3]]
 [connection signal="pressed" from="Panel Buttons/btnFive" to="." method="CheckColor" binds= [4]]
 [connection signal="pressed" from="Panel Buttons/btnSix" to="." method="CheckColor" binds= [5]]
-[connection signal="pressed" from="Panel Social Media/btnWeb" to="." method="OpenBrowser" binds= ["https://byerudito.web.app/"]]
+[connection signal="pressed" from="Panel Social Media/btnWeb" to="." method="OpenBrowser" binds= ["https://jorgeloor-dev.web.app/"]]
 [connection signal="pressed" from="Panel Social Media/btnInstagram" to="." method="OpenBrowser" binds= ["https://www.instagram.com/theerudito/"]]
 [connection signal="pressed" from="Panel Social Media/btnGitHub" to="." method="OpenBrowser" binds= ["https://github.com/theerudito"]]
 [connection signal="timeout" from="timeGame" to="." method="CronometerOne"]

@@ -17,6 +17,7 @@ boot_splash/bg_color=Color(0.137255, 0.121569, 0.12549, 1)
 boot_splash/image="res://assets/logo.png"
 boot_splash/fullsize=false
 config/icon="res://assets/icon.png"
+boot_splash/minimum_display_time=3
 
 [autoload]
 
